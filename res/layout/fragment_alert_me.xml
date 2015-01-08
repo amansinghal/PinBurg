@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -49,12 +50,23 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:layout_gravity="right|center_vertical"
-        android:text="TextView" />
+        android:text="Select All" />
 
     <ListView
         android:id="@+id/lv_alert_me_category"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:choiceMode="multipleChoice"
+        android:layout_weight="0.5"
+        android:listSelector="@color/list_item_background"
+        android:layout_height="0dp" >
     </ListView>
+
+   <Button
+        android:id="@+id/btn_alert_me_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/activated_listitem_color"
+        android:text="Save"
+        android:textColor="#fff" />
 
 </LinearLayout>

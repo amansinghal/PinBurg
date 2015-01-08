@@ -131,6 +131,7 @@ public class DashBoard extends ActionBarActivity implements NavigationDrawerFrag
 			break;
 		case 4:
 			fragmentManager.beginTransaction().replace(R.id.container,new Frag_Alert_Me()).commit();
+			break;
 		default:
 			fragmentManager.beginTransaction().replace(R.id.container,PlaceholderFragment.newInstance(position + 1)).commit();
 			break;

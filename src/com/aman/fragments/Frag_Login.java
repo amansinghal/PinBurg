@@ -72,6 +72,8 @@ public class Frag_Login extends Fragment
 								.putString("city",jObject.getJSONObject("user").getJSONObject("city").toString())
 								.putString("pin_count",jObject.getJSONObject("user").getString("pin_count"))
 								.putBoolean("isuserlogin",true).putBoolean("rememberme",cb_rememberme.isChecked())
+								.putString("range", jObject.getJSONObject("user").getString("range"))
+ 								.putString("is_notify_service_enable", jObject.getJSONObject("user").getString("is_notify_service_enable"))
 								.putString("photo_path","http://www.pinburg.com"+jObject.getJSONObject("user").getString("photo_path"))
 								.commit();
 								startActivity(new Intent(getActivity(),DashBoard.class));

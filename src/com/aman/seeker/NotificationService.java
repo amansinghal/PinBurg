@@ -37,10 +37,10 @@ public class NotificationService extends Service
 		super.onCreate();	
 		pref=getSharedPreferences(Config.PREF_KEY,MODE_PRIVATE);
 	}
-	
+
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) 
-	{	
+	{			
 		registerLocationService();
 		return START_STICKY;
 	}
@@ -51,26 +51,15 @@ public class NotificationService extends Service
 			return NotificationService.this;
 		}
 	}
-	
+
 	public void registerLocationService() 
 	{
-		locationManager=(LocationManager)getSystemService(Context.LOCATION_SERVICE);
-		
-		Criteria criteria = new Criteria();
-		String provider = locationManager.getBestProvider(criteria, false);
-		Location location = locationManager.getLastKnownLocation(provider);
-		if (location != null) 
-		{		   
-			//locationListener.onLocationChanged(location);
-		}
-		//else
-		{
-			locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,1000, locationListener);
-			locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 1000, locationListener);
-		}
-		
+		locationManager=(LocationManager)getSystemService(Context.LOCATION_SERVICE);		
+		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,pref.getInt("range",1)*1000, locationListener);
+		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, pref.getInt("range",1)*1000, locationListener);
+
 	}
-	
+
 	public LocationListener locationListener=new LocationListener()
 	{	
 		@Override
@@ -78,19 +67,19 @@ public class NotificationService extends Service
 		{			
 			Log.e("status",""+status);
 		}
-		
+
 		@Override
 		public void onProviderEnabled(String provider) 
 		{
-			
+
 		}
-		
+
 		@Override
 		public void onProviderDisabled(String provider) 
 		{
-			
+
 		}
-		
+
 		@Override
 		public void onLocationChanged(Location location) 
 		{			
@@ -98,7 +87,7 @@ public class NotificationService extends Service
 			count++;
 		}
 	};
-	
+
 	private void sendNotification(String msg, Bundle extras)
 	{
 		NotificationManager mNotificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);

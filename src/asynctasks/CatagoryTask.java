@@ -45,7 +45,11 @@ public class CatagoryTask extends AsyncTask<String, Void, Integer>
 	{
 		// TODO Auto-generated method stub
 		RestClient client=new RestClient(Config.APILink);
-		client.AddParam("tag","getCategory");			
+		client.AddParam("tag","getCategory");
+		if(params[0]!=null && !params[0].isEmpty())
+		{
+			client.AddParam("uid",params[0]);
+		}
 		try 
 		{
 			client.Execute(RequestMethod.POST);
@@ -61,6 +65,7 @@ public class CatagoryTask extends AsyncTask<String, Void, Integer>
 						HashMap<String, String> map=new HashMap<>();
 						map.put("name", array.getJSONObject(i).getString("name"));
 						map.put("id", array.getJSONObject(i).getString("id"));
+						map.put("isSelected",array.getJSONObject(i).getString("selected"));
 						listCatagory.add(map);
 					}
 					return 1;

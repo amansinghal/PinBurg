@@ -1,38 +1,41 @@
 package com.aman.adapter;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.aman.seeker.R;
-import com.aman.utils.Config;
 
 public class CategoryAdapter extends BaseAdapter
 {
 	LayoutInflater inflater;
 	Context con;
-	
-	public CategoryAdapter(Context con) 
+	ArrayList<HashMap<String, String>> list;
+	public CategoryAdapter(Context con,ArrayList<HashMap<String, String>> list) 
 	{
 		this.con=con;
+		this.list=list;
 	}
 
 	@Override
 	public int getCount() 
 	{
 		// TODO Auto-generated method stub
-		return 10;
+		return list.size();
 	}
 
 	@Override
 	public Object getItem(int arg0)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return list.get(arg0);
 	}
 
 	@Override
@@ -54,32 +57,50 @@ public class CategoryAdapter extends BaseAdapter
 
 			holder=new viewHolder();
 
-			convertView = inflater.inflate(R.layout.list_item_newsfeed,arg2, false);	
+			convertView = inflater.inflate(R.layout.list_item_1,arg2, false);	
 			
-			holder.iv_place_pic=(ImageView)convertView.findViewById(R.id.iv_place_pic);
+			holder.cb=(CheckBox)convertView.findViewById(R.id.checkBox1);
 			
-			holder.iv_place_pic.setLayoutParams(new LinearLayout.LayoutParams(Config.getScreenSize(con)[0]/3,LinearLayout.LayoutParams.MATCH_PARENT));
-
 			convertView.setTag(holder);
 		}
 		else
 		{
 			holder=(viewHolder)convertView.getTag();
 		}
-
-		if(position%2==0)
+		
+		holder.cb.setText(list.get(position).get("name"));
+		
+		if(list.get(position).get("isSelected").equalsIgnoreCase("1"))
 		{
-			holder.iv_place_pic.setImageDrawable(con.getResources().getDrawable(R.drawable.images1));
-		}
+			holder.cb.setChecked(true);			
+		}	
 		else
 		{
-			holder.iv_place_pic.setImageDrawable(con.getResources().getDrawable(R.drawable.images2));
+			holder.cb.setChecked(true);
 		}
+		
+		final int pos=position;
+		
+		holder.cb.setOnCheckedChangeListener(new OnCheckedChangeListener()
+		{		
+			@Override
+			public void onCheckedChanged(CompoundButton arg0, boolean arg1) 
+			{
+				if(arg1)
+				{
+					list.get(pos).put("isSelected", "1");
+				}
+				else
+				{
+					list.get(pos).put("isSelected", "0");
+				}
+			}
+		});
 		return convertView;
 	}
 	class viewHolder
 	{
-		ImageView iv_place_pic;
+		CheckBox cb;
 	}
 }
 
