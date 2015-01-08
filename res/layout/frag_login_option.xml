@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical" 
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/activated_listitem_color"
+        android:text="@string/btn_login_with_pinburg"
+        android:textColor="#fff" />
+
+    <Button
+        android:id="@+id/btn_as_guest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/activated_listitem_color"
+        android:text="@string/btn_login_as_guest"
+        android:textColor="#fff" />
+
+    <Button
+        android:id="@+id/btn_fb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@color/activated_listitem_color"
+        android:text="@string/btn_login_with_fb"
+        android:textColor="#fff" />
+
+    <Button
+        android:id="@+id/btn_signup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/activated_listitem_color"
+        android:text="@string/btn_sign_up"
+        android:textColor="#fff" />
+
+</LinearLayout>

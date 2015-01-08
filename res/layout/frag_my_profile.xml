@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:pinburg="http://schemas.android.com/apk/res/com.aman.seeker"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/list_item_background"
+    android:clickable="true"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:id="@+id/fl_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/activated_listitem_color" >
+
+        <ImageView
+            android:id="@+id/iv_profile_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            android:src="@drawable/profile_pic" />
+
+        <com.aman.utils.CustomTextView
+            android:id="@+id/tv_profile_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="right|bottom"
+            android:paddingBottom="5dp"
+            android:paddingRight="5dp"            
+            android:text="Aman Singhal"
+            android:background="@drawable/shade"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            pinburg:customTextFont="SEGOEUI.TTF" />
+    </FrameLayout>
+
+</LinearLayout>

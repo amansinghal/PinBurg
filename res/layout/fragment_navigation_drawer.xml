@@ -1,0 +1,48 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:pinburg="http://schemas.android.com/apk/res/com.aman.seeker"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/app_theme_back"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:id="@+id/fl_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/activated_listitem_color" >
+
+        <ImageView
+            android:id="@+id/iv_profile_image"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_gravity="center_vertical"
+            android:scaleType="centerCrop"
+            android:src="@drawable/profile_pic" />
+
+        <com.aman.utils.CustomTextView
+            android:id="@+id/tv_profile_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@drawable/shade"
+            android:gravity="right|bottom"
+            android:paddingBottom="5dp"
+            android:paddingRight="5dp"
+            android:text="Aman Singhal"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            pinburg:customTextFont="SEGOEUI.TTF" />
+    </FrameLayout>
+
+   
+
+    <ListView
+        android:id="@+id/lv_navigation_drawer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:choiceMode="singleChoice"
+        android:layout_marginTop="3sp"
+        android:dividerHeight="1dp"
+        android:listSelector="@color/activated_listitem_color" >
+    </ListView>
+
+</LinearLayout>

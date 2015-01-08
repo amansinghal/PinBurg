@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:background="@color/list_item_background"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/activated_listitem_color"
+        android:padding="5dp" >
+
+        <TextView
+            android:id="@+id/tv_mapview_mytagged_pin"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/mapview"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#fff" />
+
+        <TextView
+            android:id="@+id/tv_listview_mytagged_pin"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/listview"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#fff" />
+    </LinearLayout>
+
+    <ViewSwitcher
+        android:id="@+id/viewswithcer_my_pins"
+        android:layout_width="match_parent"
+        android:padding="5dp"
+        android:layout_height="match_parent" >
+
+        <fragment
+            android:id="@+id/map_my_tagged_pins"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ListView
+            android:id="@+id/lv_my_pins"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="5dp"            
+            android:listSelector="@color/app_theme_back"
+            android:scrollbars="none" >
+        </ListView>
+    </ViewSwitcher>
+
+</LinearLayout>
