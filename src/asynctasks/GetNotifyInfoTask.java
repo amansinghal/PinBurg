@@ -15,14 +15,16 @@ import com.aman.utils.RestClient.RequestMethod;
 import android.content.Context;
 import android.os.AsyncTask;
 
-public class CatagoryTask extends AsyncTask<String, Void, Integer>
+public class GetNotifyInfoTask extends AsyncTask<String, Void, Integer>
 {
 	Context context;
 	CustomProgressDialog dialog;
 	public static onTaskCompleteListener callbackListener;
 	String response="";
 	ArrayList<HashMap<String, String>> listCatagory;
-	public CatagoryTask(Context context,onTaskCompleteListener listener) 
+	int range;
+	boolean notify;
+	public GetNotifyInfoTask(Context context,onTaskCompleteListener listener) 
 	{
 		this.context=context;
 		callbackListener=listener;
@@ -45,7 +47,8 @@ public class CatagoryTask extends AsyncTask<String, Void, Integer>
 	{
 		// TODO Auto-generated method stub
 		RestClient client=new RestClient(Config.APILink);
-		client.AddParam("tag","getCategory");
+		client.AddParam("tag","getNotifyMeInfo");
+		client.AddParam("uid",params[0]);
 		try 
 		{
 			client.Execute(RequestMethod.POST);
@@ -61,8 +64,11 @@ public class CatagoryTask extends AsyncTask<String, Void, Integer>
 						HashMap<String, String> map=new HashMap<>();
 						map.put("name", array.getJSONObject(i).getString("name"));
 						map.put("id", array.getJSONObject(i).getString("id"));
+						map.put("isSelected",array.getJSONObject(i).getString("selected"));
 						listCatagory.add(map);
 					}
+					range=jsonObject.getJSONObject("notify").getInt("range");
+					notify=jsonObject.getJSONObject("notify").getInt("notification")==0?false:true;
 					return 1;
 				}
 				else
@@ -83,11 +89,18 @@ public class CatagoryTask extends AsyncTask<String, Void, Integer>
 	protected void onPostExecute(Integer result) 
 	{
 		dialog.dismiss();
-		callbackListener.ontaskComplete(listCatagory);
+		if(result==1)
+		{
+			callbackListener.ontaskComplete(listCatagory,range,notify);
+		}
+		else
+		{
+			callbackListener.ontaskComplete(null,0,false);
+		}
 	}
 
 	public static interface onTaskCompleteListener
 	{
-		void ontaskComplete(ArrayList<HashMap<String, String>> listCatagory );
+		void ontaskComplete(ArrayList<HashMap<String, String>> listCatagory,int range,boolean isnotifyenable);
 	}
 }

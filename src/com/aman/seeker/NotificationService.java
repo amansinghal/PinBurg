@@ -55,8 +55,8 @@ public class NotificationService extends Service
 	public void registerLocationService() 
 	{
 		locationManager=(LocationManager)getSystemService(Context.LOCATION_SERVICE);		
-		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,pref.getInt("range",1)*1000, locationListener);
-		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, pref.getInt("range",1)*1000, locationListener);
+		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,Integer.parseInt(pref.getString("range","1"))*1000, locationListener);
+		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0,Integer.parseInt(pref.getString("range","1"))*1000, locationListener);
 
 	}
 

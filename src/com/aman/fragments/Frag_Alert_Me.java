@@ -27,6 +27,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import asynctasks.CatagoryTask;
+import asynctasks.GetNotifyInfoTask;
 
 import com.aman.adapter.CategoryAdapter;
 import com.aman.seeker.R;
@@ -50,8 +51,8 @@ public class Frag_Alert_Me extends Fragment implements OnClickListener
 		pref=getActivity().getSharedPreferences(Config.PREF_KEY, Context.MODE_PRIVATE);
 		initComponents(v);		
 		sb.setMax(15);
-		tv_km.setText(String.valueOf(pref.getInt("range", 2))+" Km");
-		sb.setProgress(pref.getInt("range", 2));
+		tv_km.setText(pref.getString("range","")+" Km");
+		sb.setProgress(Integer.parseInt(pref.getString("range", "")));
 		sb.setOnSeekBarChangeListener(new OnSeekBarChangeListener()
 		{		
 			@Override
@@ -127,19 +128,21 @@ public class Frag_Alert_Me extends Fragment implements OnClickListener
 
 	private void getCatagory(final Context con)	
 	{
-		CatagoryTask task=new CatagoryTask(getActivity(), new CatagoryTask.onTaskCompleteListener()
-		{		
+		GetNotifyInfoTask task=new GetNotifyInfoTask(con, new GetNotifyInfoTask.onTaskCompleteListener()
+		{			
 			@Override
-			public void ontaskComplete(ArrayList<HashMap<String, String>> listCatagory) 
+			public void ontaskComplete(ArrayList<HashMap<String, String>> listCatagory,int range, boolean isnotifyenable) 
 			{
-				if(!listCatagory.isEmpty())
+				if(listCatagory!=null)
 				{
 					adapter=new CategoryAdapter(getActivity(), listCatagory);
-					lv_category.setAdapter(adapter);					
+					lv_category.setAdapter(adapter);
+					sw.setChecked(isnotifyenable);					
+					sb.setProgress(range);
 				}
 				else
 				{
-					Config.alertDialogBox(getActivity(), (ActionBarActivity)getActivity(),null,"Problem while getting catagories.",true);
+					
 				}
 			}
 		});
