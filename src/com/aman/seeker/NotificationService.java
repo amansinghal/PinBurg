@@ -1,14 +1,14 @@
 package com.aman.seeker;
 
-import com.aman.utils.Config;
-
+import android.annotation.SuppressLint;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -19,12 +19,17 @@ import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.aman.utils.Config;
+
 public class NotificationService extends Service
 {
 	IBinder myBinder=new NotiBinder();
-	LocationManager locationManager;
+	LocationManager locationManager=null;
 	SharedPreferences pref;
+	public static boolean IsSelfDestroy=false;
+	public static String ACTION="com.aman.seeker.STOP";
 	int count=1;
+	StopServiceReciever stopServiceReciever;
 	@Override
 	public IBinder onBind(Intent arg0)
 	{		
@@ -40,8 +45,13 @@ public class NotificationService extends Service
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) 
-	{			
-		registerLocationService();
+	{		
+		
+		{
+			registerLocationService();
+			stopServiceReciever=new StopServiceReciever();
+			registerReceiver(stopServiceReciever, new IntentFilter(ACTION));
+		}		
 		return START_STICKY;
 	}
 	public class NotiBinder extends Binder
@@ -58,6 +68,14 @@ public class NotificationService extends Service
 		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,Integer.parseInt(pref.getString("range","1"))*1000, locationListener);
 		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0,Integer.parseInt(pref.getString("range","1"))*1000, locationListener);
 
+	}
+
+	public void stopLocationService()
+	{
+		if(locationManager!=null && locationListener!=null)
+		{
+			locationManager.removeUpdates(locationListener);			
+		}
 	}
 
 	public LocationListener locationListener=new LocationListener()
@@ -88,11 +106,13 @@ public class NotificationService extends Service
 		}
 	};
 
+	@SuppressLint("NewApi")
 	private void sendNotification(String msg, Bundle extras)
 	{
 		NotificationManager mNotificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
 
 		Intent intent = new Intent(this, DashBoard.class).setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		intent.putExtra("fromNotification", "true");
 		// If this is a notification type message include the data from the message 
 		// with the intent
 		if (extras != null)
@@ -108,11 +128,61 @@ public class NotificationService extends Service
 		.setContentTitle("PinBurg")
 		.setContentText(msg)
 		.setTicker(msg)
-		.setAutoCancel(true)
+		.setAutoCancel(true)		
 		.setSound(Settings.System.DEFAULT_NOTIFICATION_URI);
-
-		mBuilder.setContentIntent(contentIntent);
+	
+		
+	/*	Notification noti = new Notification.Builder(this)
+		.setStyle(new Notification.InboxStyle()
+		.addLine("Soandso likes your post")
+		.addLine("Soandso reblogged your post"))		
+		.setContentTitle("PinBurg")
+		.setAutoCancel(true)		
+		.addAction(android.R.drawable.ic_menu_info_details,"view", contentIntent)
+		.setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
+		.build();*/		
+		mBuilder.setContentIntent(contentIntent);	
 		mNotificationManager.notify(1, mBuilder.build());
 	}
+	
+	
+	
+	@Override
+	public void onDestroy() 
+	{			
+		super.onDestroy();		
+		if(stopServiceReciever!=null)
+		{
+			sendBroadcast(new Intent(ACTION));
+		}
+	}
+	
+	class StopServiceReciever extends BroadcastReceiver
+	{
 
+		@Override
+		public void onReceive(Context arg0, Intent arg1)
+		{
+			if(arg1.getAction().equalsIgnoreCase(ACTION))
+			{
+				stopLocationService();
+				if(!arg1.hasExtra("isFromSelf"))
+				{
+					Intent dialogIntent = new Intent(getBaseContext(), DialogActivityServiceRestart.class);
+					dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					getApplication().startActivity(dialogIntent);
+					arg0.startActivity(dialogIntent);
+					unregisterReceiver(this);
+				}
+				else
+				{
+					stopSelf();
+					unregisterReceiver(this);
+				}					
+			}
+			
+		}
+		
+	}
+	
 }

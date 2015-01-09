@@ -29,6 +29,8 @@
    	<string name="doyouwant">Do you want to add this location as your pin ?</string>
    	<string name="listview">List-View</string>
    	<string name="mapview">Map-View</string>
-   	<string name="notifyme">Notify me</string>   
+   	<string name="notifyme">Notify me</string>
+   	<string name="restart">Restart</string>
+   	<string name="cancel">Cancel</string>   
 
 </resources>

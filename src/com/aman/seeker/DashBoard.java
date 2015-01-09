@@ -58,7 +58,8 @@ public class DashBoard extends ActionBarActivity implements NavigationDrawerFrag
 	final int SEARCH_MENU_ID_FIND_PIN=100,SEARCH_MENU_ID_TAG_PIN=101,CHANGE_MAPTYPE_ADD_PIN=102;
 	SearchView SearchBox;
 	SharedPreferences pref;
-	NotificationService notificationService;
+	public NotificationService notificationService;
+	public Intent notificationIntent;
 	public static final int IMAGE_SELECT=111,IMAGE_SELECT_ADD_IMG1=112,IMAGE_SELECT_ADD_IMG2=113,IMAGE_SELECT_ADD_IMG3=114;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -94,20 +95,18 @@ public class DashBoard extends ActionBarActivity implements NavigationDrawerFrag
 
 		tv_title.setGravity(Gravity.CENTER);	
 
-		//getSupportFragmentManager().beginTransaction().add(R.id.container,new Frag_My_Profile()).commit();
+		if(!getIntent().hasExtra("fromNotification"))
 		startNotificationService();
 	}
 
 	public void startNotificationService() 
 	{
-		Intent notificationIntent=new Intent(this,NotificationService.class);
+		notificationIntent=new Intent(this,NotificationService.class);	
 
+		if(pref.getString("is_notify_service_enable", "1").equals("1"))
 		startService(notificationIntent);
+	}	
 
-		bindService(notificationIntent, serviceConnection,Service.BIND_AUTO_CREATE);
-		
-		
-	}
 
 	@Override
 	public void onNavigationDrawerItemSelected(int position) 

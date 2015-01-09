@@ -3,7 +3,10 @@ package com.aman.fragments;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.json.JSONObject;
+
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -28,8 +31,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import asynctasks.CatagoryTask;
 import asynctasks.GetNotifyInfoTask;
+import asynctasks.UpdateNotificationServiceTask;
 
 import com.aman.adapter.CategoryAdapter;
+import com.aman.seeker.DashBoard;
+import com.aman.seeker.DialogActivityServiceRestart;
+import com.aman.seeker.NotificationService;
 import com.aman.seeker.R;
 import com.aman.utils.Config;
 
@@ -39,7 +46,7 @@ public class Frag_Alert_Me extends Fragment implements OnClickListener
 	Switch sw;
 	TextView tv_km,tv_select_all;
 	ListView lv_category;
-	ArrayList<HashMap<String, String>> listCatagory;
+	ArrayList<HashMap<String, String>> listCatagory_old=new ArrayList<>();
 	CatagoryTask task;
 	Button btn_save;
 	SharedPreferences pref;
@@ -48,11 +55,11 @@ public class Frag_Alert_Me extends Fragment implements OnClickListener
 	public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) 
 	{	
 		View v=inflater.inflate(R.layout.fragment_alert_me, container, false);
+		
 		pref=getActivity().getSharedPreferences(Config.PREF_KEY, Context.MODE_PRIVATE);
 		initComponents(v);		
-		sb.setMax(15);
-		tv_km.setText(pref.getString("range","")+" Km");
-		sb.setProgress(Integer.parseInt(pref.getString("range", "")));
+		setFromPrefrence();
+		sb.setMax(15);		
 		sb.setOnSeekBarChangeListener(new OnSeekBarChangeListener()
 		{		
 			@Override
@@ -72,7 +79,7 @@ public class Frag_Alert_Me extends Fragment implements OnClickListener
 			{				
 				if(arg1==0)
 				{
-					sw.setChecked(false);
+					sw.setChecked(false);					
 				}	
 				else
 				{
@@ -80,21 +87,42 @@ public class Frag_Alert_Me extends Fragment implements OnClickListener
 				}
 				tv_km.setText(String.valueOf(arg1)+" Km");
 			}
-		});
-		sw.setChecked(pref.getBoolean("isNotifyServiceEnabled",true));
-		
+		});		
 		sw.setOnCheckedChangeListener(new OnCheckedChangeListener()
 		{		
 			@Override
 			public void onCheckedChanged(CompoundButton arg0, boolean arg1) 
 			{
-				
+				if(arg1)
+				{
+					//((DashBoard)getActivity()).notificationService.registerLocationService();
+					getActivity().startService(((DashBoard)getActivity()).notificationIntent);
+				}
+				else
+				{
+					//((DashBoard)getActivity()).notificationService.stopLocationService();
+					Intent intent=new Intent(NotificationService.ACTION);
+					intent.putExtra("isFromSelf", "true");
+					getActivity().sendBroadcast(intent);
+				}
 			}
 		});
 		getCatagory(getActivity());
+	
 		return v;
 	}
+	
+	private void setFromPrefrence()
+	{
+		sw.setChecked(pref.getString("is_notify_service_enable", "1").equals("1")?true:false);
+		sb.setProgress(Integer.parseInt(pref.getString("range", "")));
+		tv_km.setText(pref.getString("range","")+" Km");	
+	}
 
+	private void setToPrefrence() 
+	{
+		
+	}
 	private void initComponents(View v)
 	{
 		sb=(SeekBar)v.findViewById(R.id.sb_alert_me_range_setter);
@@ -120,7 +148,26 @@ public class Frag_Alert_Me extends Fragment implements OnClickListener
 
 			break;
 		case R.id.btn_alert_me_save:
-			Log.e("No of selections",""+ lv_category.getCheckedItemCount());
+			
+			StringBuilder category = new StringBuilder();
+			for(int i=0; i < adapter.getCount();i++)
+			{
+				HashMap<String, String> map=(HashMap<String, String>) adapter.getItem(i);
+				if(map.get("isSelected").equals("1"))
+				{
+					category.append(map.get("id")+",");
+				}
+			}				
+			if(category!=null)
+			{
+				String temp=category.toString();
+				if(temp.endsWith(","))
+				{
+					temp=temp.substring(0, temp.length()-1);
+				}
+				getNotificationServiceTask().execute(pref.getString("uid", ""),String.valueOf(sb.getProgress()),sw.isChecked()?"1":"0",temp);	
+			}			
+			
 			break;
 		}
 
@@ -135,6 +182,7 @@ public class Frag_Alert_Me extends Fragment implements OnClickListener
 			{
 				if(listCatagory!=null)
 				{
+					listCatagory_old.addAll(listCatagory);
 					adapter=new CategoryAdapter(getActivity(), listCatagory);
 					lv_category.setAdapter(adapter);
 					sw.setChecked(isnotifyenable);					
@@ -168,4 +216,35 @@ public class Frag_Alert_Me extends Fragment implements OnClickListener
 		}
 		
 	};
+	
+	private UpdateNotificationServiceTask getNotificationServiceTask()
+	{
+		UpdateNotificationServiceTask task=new UpdateNotificationServiceTask(getActivity(), new UpdateNotificationServiceTask.onTaskCompleteListener()
+		{
+			
+			@Override
+			public void ontaskComplete(String response) 
+			{
+				try 
+				{
+					JSONObject object=new JSONObject(response);
+					if(object.getString("success").equals("1"))
+					{
+						pref.edit().putString("range",String.valueOf(sb.getProgress()))
+						.putString("is_notify_service_enable",sw.isChecked()?"1":"0").commit();
+					}
+					else
+					{						
+						getCatagory(getActivity());
+					}
+				}
+				catch (Exception e) 
+				{
+					e.printStackTrace();
+				}
+				
+			}
+		});
+		return task;
+	}
 }

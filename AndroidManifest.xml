@@ -18,7 +18,9 @@
         android:protectionLevel="signature" />
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
@@ -87,19 +89,32 @@
 
         <service android:name=".GcmIntentService" >
         </service>
-        
-        <receiver 
-            android:enabled="true" 
+
+        <activity
+            android:name="com.aman.seeker.DialogActivityServiceRestart"
+            android:theme="@android:style/Theme.DeviceDefault.Dialog.NoActionBar" >
+        </activity>
+
+        <receiver
             android:name="com.aman.seeker.AutoStartBroadcastReciever"
-            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+            android:enabled="true"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED" >
             <intent-filter>
-                    <action android:name="android.intent.action.BOOT_COMPLETED" />
-                    <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
-        
-        <service 
-            android:name="com.aman.seeker.NotificationService">            
+
+        <service android:name="com.aman.seeker.NotificationService" >
+        </service>
+        <service
+            android:name="com.aman.seeker.NotiicationListener"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" >
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
         </service>
     </application>
 

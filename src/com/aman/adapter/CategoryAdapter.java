@@ -76,7 +76,7 @@ public class CategoryAdapter extends BaseAdapter
 		}	
 		else
 		{
-			holder.cb.setChecked(true);
+			holder.cb.setChecked(false);
 		}
 		
 		final int pos=position;
