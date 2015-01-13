@@ -21,12 +21,11 @@ import android.util.Log;
 
 import com.aman.utils.Config;
 
-public class NotificationService extends Service
+public class NotificationService extends Service implements LocationListener
 {
 	IBinder myBinder=new NotiBinder();
 	LocationManager locationManager=null;
 	SharedPreferences pref;
-	public static boolean IsSelfDestroy=false;
 	public static String ACTION="com.aman.seeker.STOP";
 	int count=1;
 	StopServiceReciever stopServiceReciever;
@@ -65,46 +64,19 @@ public class NotificationService extends Service
 	public void registerLocationService() 
 	{
 		locationManager=(LocationManager)getSystemService(Context.LOCATION_SERVICE);		
-		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,Integer.parseInt(pref.getString("range","1"))*1000, locationListener);
-		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0,Integer.parseInt(pref.getString("range","1"))*1000, locationListener);
+		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,Integer.parseInt(pref.getString("range","1"))*1000, this);
+		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0,Integer.parseInt(pref.getString("range","1"))*1000, this);
 
 	}
 
 	public void stopLocationService()
 	{
-		if(locationManager!=null && locationListener!=null)
+		if(locationManager!=null)
 		{
-			locationManager.removeUpdates(locationListener);			
+			locationManager.removeUpdates(this);			
 		}
 	}
 
-	public LocationListener locationListener=new LocationListener()
-	{	
-		@Override
-		public void onStatusChanged(String provider, int status, Bundle extras) 
-		{			
-			Log.e("status",""+status);
-		}
-
-		@Override
-		public void onProviderEnabled(String provider) 
-		{
-
-		}
-
-		@Override
-		public void onProviderDisabled(String provider) 
-		{
-
-		}
-
-		@Override
-		public void onLocationChanged(Location location) 
-		{			
-			sendNotification(count+" times",null);
-			count++;
-		}
-	};
 
 	@SuppressLint("NewApi")
 	private void sendNotification(String msg, Bundle extras)
@@ -182,6 +154,31 @@ public class NotificationService extends Service
 			}
 			
 		}
+		
+	}
+
+	@Override
+	public void onLocationChanged(Location location) 
+	{
+		sendNotification(count+" times",null);
+		count++;
+	}
+
+	@Override
+	public void onProviderDisabled(String provider) 
+	{
+		
+	}
+
+	@Override
+	public void onProviderEnabled(String provider) 
+	{
+		
+	}
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) 
+	{
 		
 	}
 	

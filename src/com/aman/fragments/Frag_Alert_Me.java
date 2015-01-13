@@ -2,40 +2,31 @@ package com.aman.fragments;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import org.json.JSONObject;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
-import android.widget.SimpleAdapter;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 import asynctasks.CatagoryTask;
 import asynctasks.GetNotifyInfoTask;
 import asynctasks.UpdateNotificationServiceTask;
-
 import com.aman.adapter.CategoryAdapter;
 import com.aman.seeker.DashBoard;
-import com.aman.seeker.DialogActivityServiceRestart;
 import com.aman.seeker.NotificationService;
 import com.aman.seeker.R;
 import com.aman.utils.Config;
@@ -232,6 +223,11 @@ public class Frag_Alert_Me extends Fragment implements OnClickListener
 					{
 						pref.edit().putString("range",String.valueOf(sb.getProgress()))
 						.putString("is_notify_service_enable",sw.isChecked()?"1":"0").commit();
+						Intent intent=new Intent(NotificationService.ACTION);
+						intent.putExtra("isFromSelf", "true");
+						getActivity().sendBroadcast(intent);
+						
+						getActivity().startService(((DashBoard)getActivity()).notificationIntent);
 					}
 					else
 					{						

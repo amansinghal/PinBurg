@@ -50,7 +50,7 @@ public class NewPinTask extends AsyncTask<String, Void, Integer>
 		// TODO Auto-generated method stub
 		RestClient client=new RestClient(Config.APILink);
 		client.AddParam("tag","getPin");	
-		client.AddParam("id",params[1]);
+		client.AddParam("page_no",params[1]);
 		client.AddParam("op_type", params[2]);
 		op_type=params[2];
 		if(!params[0].isEmpty())
@@ -87,7 +87,7 @@ public class NewPinTask extends AsyncTask<String, Void, Integer>
 						pin.userName=temp.getJSONObject("user").getString("name");
 						pin.userPhoto=temp.getJSONObject("user").getString("photo_path");
 						pin.userEmail=temp.getJSONObject("user").getString("email");
-						JSONArray temparr=temp.getJSONObject("pin").getJSONArray("image");						
+						JSONArray temparr=temp.getJSONObject("pin").isNull("image")?new JSONArray():temp.getJSONObject("pin").getJSONArray("image");						
 						if(temparr.length()>0)
 						{
 							for(int j=0;j<temparr.length();j++)

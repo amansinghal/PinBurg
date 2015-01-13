@@ -29,6 +29,7 @@ public class Frag_NewsFeed extends Fragment
 	NewPinAdapter adapter;
 	ArrayList<Pin> pinData=new ArrayList<>();
 	NewPinTask task;
+	int page=1;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) 
 	{
@@ -73,7 +74,7 @@ public class Frag_NewsFeed extends Fragment
 		else
 		{
 			swipeRefreshLayout.setRefreshing(true);
-			task.execute("","0","load");
+			task.execute("",String.valueOf(page),"load");
 		}		
 		return v;		
 	}
@@ -110,7 +111,8 @@ public class Frag_NewsFeed extends Fragment
 						lv_news_feeds.setOnScrollListener(scrollListener);
 					}			
 				},false);
-				task.execute("",pinData.get(pinData.size()-1).id,"load");
+				page++;
+				task.execute("",String.valueOf(page),"load");
 				lv_news_feeds.setOnScrollListener(null);
 			}
 		}
@@ -158,7 +160,7 @@ public class Frag_NewsFeed extends Fragment
 		}
 		catch(Exception e)
 		{
-			task.execute("","0","load");	
+			task.execute("",String.valueOf(page),"load");	
 		}
 	}
 }

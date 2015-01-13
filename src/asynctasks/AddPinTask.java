@@ -97,7 +97,6 @@ public class AddPinTask extends AsyncTask<String, Integer, Integer>
 			if(!params[7].isEmpty()||!params[8].isEmpty()||!params[9].isEmpty())
 			{
 
-
 				entity.addPart("type", new StringBody("image/jpeg"));
 
 				if(!params[7].isEmpty())
