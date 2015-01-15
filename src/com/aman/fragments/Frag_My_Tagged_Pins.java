@@ -49,6 +49,8 @@ public class Frag_My_Tagged_Pins extends Fragment implements OnClickListener
 	SharedPreferences pref;
 
 	NewPinTask task;
+	
+	int page=1;
 
 	ArrayList<Pin> pinData=new ArrayList<>();
 
@@ -109,7 +111,7 @@ public class Frag_My_Tagged_Pins extends Fragment implements OnClickListener
 		else
 		{
 			//swipeRefreshLayout.setRefreshing(true);
-			task.execute(pref.getString("uid", ""),"0","load");
+			task.execute(pref.getString("uid", ""),String.valueOf(page),"load");
 		}
 
 		return view;
@@ -171,7 +173,8 @@ public class Frag_My_Tagged_Pins extends Fragment implements OnClickListener
 							showMarkerOnPin(pinData);	
 					}			
 				},false);
-				task.execute("",pinData.get(pinData.size()-1).id,"load");
+				page++;
+				task.execute(pref.getString("uid", ""),String.valueOf(page),"load");
 				lv_my_pins.setOnScrollListener(null);
 			}
 		}
@@ -220,7 +223,7 @@ public class Frag_My_Tagged_Pins extends Fragment implements OnClickListener
 		}
 		catch(Exception e)
 		{
-			task.execute(pref.getString("uid", ""),"0","load");	
+			task.execute(pref.getString("uid", ""),String.valueOf(page),"load");	
 		}
 	}
 	@Override

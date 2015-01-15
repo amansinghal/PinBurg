@@ -12,12 +12,12 @@ import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.os.Binder;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 
 import com.aman.utils.Config;
 
@@ -44,8 +44,7 @@ public class NotificationService extends Service implements LocationListener
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) 
-	{		
-		
+	{				
 		{
 			registerLocationService();
 			stopServiceReciever=new StopServiceReciever();
@@ -177,9 +176,9 @@ public class NotificationService extends Service implements LocationListener
 	}
 
 	@Override
-	public void onStatusChanged(String provider, int status, Bundle extras) 
+	public void onStatusChanged(String provider, int pStatus, Bundle pExtras) 
 	{
-		
+
 	}
 	
 }

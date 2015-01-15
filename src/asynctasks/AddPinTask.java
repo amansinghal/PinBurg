@@ -45,7 +45,6 @@ public class AddPinTask extends AsyncTask<String, Integer, Integer>
 	@Override
 	protected void onPreExecute() 
 	{
-		// TODO Auto-generated method stub
 		super.onPreExecute();
 		pd = new ProgressDialog(context);
 		pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
