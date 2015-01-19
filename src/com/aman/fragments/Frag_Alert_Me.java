@@ -92,9 +92,8 @@ public class Frag_Alert_Me extends Fragment implements OnClickListener
 				else
 				{
 					//((DashBoard)getActivity()).notificationService.stopLocationService();
-					Intent intent=new Intent(NotificationService.ACTION);
-					intent.putExtra("isFromSelf", "true");
-					getActivity().sendBroadcast(intent);
+					NotificationService.isFromApp=true;
+					getActivity().stopService(((DashBoard)getActivity()).notificationIntent);					
 				}
 			}
 		});
@@ -226,7 +225,7 @@ public class Frag_Alert_Me extends Fragment implements OnClickListener
 						Intent intent=new Intent(NotificationService.ACTION);
 						intent.putExtra("isFromSelf", "true");
 						getActivity().sendBroadcast(intent);
-						
+						if(sw.isChecked())
 						getActivity().startService(((DashBoard)getActivity()).notificationIntent);
 					}
 					else

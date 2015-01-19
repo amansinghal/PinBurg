@@ -141,7 +141,6 @@ public class AddPinTask extends AsyncTask<String, Integer, Integer>
 					new File(params[9]).delete();
 				return 1;
 			}
-
 			return 0;
 		}
 		catch (Exception e) 
@@ -154,7 +153,6 @@ public class AddPinTask extends AsyncTask<String, Integer, Integer>
 	@Override
 	protected void onProgressUpdate(Integer... values) 
 	{
-		// TODO Auto-generated method stub
 		super.onProgressUpdate(values);
 		if(((int) (values[0]))!=100)
 		{

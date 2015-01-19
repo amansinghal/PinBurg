@@ -28,7 +28,8 @@ public class NotificationService extends Service implements LocationListener
 	SharedPreferences pref;
 	public static String ACTION="com.aman.seeker.STOP";
 	int count=1;
-	StopServiceReciever stopServiceReciever;
+	public static boolean isFromApp=false;
+	//StopServiceReciever stopServiceReciever;
 	@Override
 	public IBinder onBind(Intent arg0)
 	{		
@@ -47,8 +48,8 @@ public class NotificationService extends Service implements LocationListener
 	{				
 		{
 			registerLocationService();
-			stopServiceReciever=new StopServiceReciever();
-			registerReceiver(stopServiceReciever, new IntentFilter(ACTION));
+			//stopServiceReciever=new StopServiceReciever();
+			//registerReceiver(stopServiceReciever, new IntentFilter(ACTION));
 		}		
 		return START_STICKY;
 	}
@@ -122,15 +123,18 @@ public class NotificationService extends Service implements LocationListener
 	public void onDestroy() 
 	{			
 		super.onDestroy();		
-		if(stopServiceReciever!=null)
+		if(!isFromApp)
 		{
-			sendBroadcast(new Intent(ACTION));
+			Intent dialogIntent = new Intent(getBaseContext(), DialogActivityServiceRestart.class);
+			dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			getApplication().startActivity(dialogIntent);
+			startActivity(dialogIntent);		
 		}
+		stopLocationService();
 	}
 	
-	class StopServiceReciever extends BroadcastReceiver
+/*	class StopServiceReciever extends BroadcastReceiver
 	{
-
 		@Override
 		public void onReceive(Context arg0, Intent arg1)
 		{
@@ -142,20 +146,25 @@ public class NotificationService extends Service implements LocationListener
 					Intent dialogIntent = new Intent(getBaseContext(), DialogActivityServiceRestart.class);
 					dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 					getApplication().startActivity(dialogIntent);
-					arg0.startActivity(dialogIntent);
-					unregisterReceiver(this);
+					arg0.startActivity(dialogIntent);					
 				}
 				else
 				{
-					stopSelf();
-					unregisterReceiver(this);
-				}					
-			}
-			
+					stopSelf();					
+				}		
+				try
+				{
+				unregisterReceiver(this);
+				}
+				catch(Exception e)
+				{
+					e.printStackTrace();
+				}
+			}						
 		}
 		
 	}
-
+*/
 	@Override
 	public void onLocationChanged(Location location) 
 	{
