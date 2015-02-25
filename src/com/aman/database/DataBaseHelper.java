@@ -16,9 +16,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DataBaseHelper extends SQLiteOpenHelper
 {
 	 
-    // Logcat tag
-    private static final String LOG = "DatabaseHelper";
- 
     // Database Version
     private static final int DATABASE_VERSION = 1;
  
@@ -78,15 +75,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
     	values.put("user_email", pin.userEmail);
     	return (int) db.insert(TABLE_PINS, null, values);
     }
-    
-    public void fetchPin()
-    {
-    	SQLiteDatabase db=this.getReadableDatabase();
-    	Cursor c=db.rawQuery("SELECT pin_lat,pin_long FROM "+TABLE_PINS,null);
-    	String pin_lat,pin_long;
-    	pin_lat=c.getString(c.getColumnIndex("pin_lat"));
-    	pin_long=c.getString(c.getColumnIndex("pin_long"));
-    }
+  
     
     public Pin fetchPinById(String id)
     {

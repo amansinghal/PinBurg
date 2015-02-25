@@ -1,9 +1,6 @@
 package com.aman.seeker;
 
 import android.app.Application;
-import android.content.SharedPreferences;
-
-import com.aman.utils.Config;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -13,6 +10,7 @@ import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 public class ApplicationContextClass extends Application 
 {	
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onCreate() 
 	{

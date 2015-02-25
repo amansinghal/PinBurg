@@ -8,7 +8,6 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
 public class UpdateNotificationServiceTask extends AsyncTask<String, Void, Integer>
 {

@@ -4,7 +4,7 @@
     <string name="app_name">PinBurg</string>
     <string name="title_newsfeed">New Pins</string>
     <string name="title_tagmyfav">Add Pins</string>
-    <string name="title_arroundme">Pins Arround Me</string>
+    <string name="title_arroundme">Pins Arround You</string>
     <string name="title_my_tagged_pins">My Pins</string>
     <string name="title_my_alert_me">Alert Me</string>
     <string name="title_my_profile">My Profile</string>

@@ -132,6 +132,7 @@ public class GcmIntentService extends IntentService
 	/**
 	 * Remove the app's notification
 	 */
+	@SuppressWarnings("unused")
 	private void clearNotification()
 	{
 		mNotificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);

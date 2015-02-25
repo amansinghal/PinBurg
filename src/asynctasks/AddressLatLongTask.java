@@ -40,7 +40,6 @@ public class AddressLatLongTask extends AsyncTask<String, Void, Integer>
 	protected Integer doInBackground(String... params) 
 	{
 		// TODO Auto-generated method stub
-		String data = "";
 		 
         // Obtain browser key from https://code.google.com/apis/console
         String key = "key=AIzaSyDGrAgt_GF5km6WlFEUjkZhd9Ucgi-U7Js";

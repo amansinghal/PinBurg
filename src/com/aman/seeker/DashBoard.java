@@ -3,20 +3,13 @@ package com.aman.seeker;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.app.Service;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.net.Uri;
-import android.os.Binder;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.provider.MediaStore.MediaColumns;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -46,12 +39,9 @@ import com.aman.fragments.Frag_Tag_My_Burg;
 import com.aman.utils.Config;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
 
 public class DashBoard extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks 
 {
-
 	private NavigationDrawerFragment mNavigationDrawerFragment;
 	private CharSequence mTitle;
 	TextView tv_title;
@@ -78,6 +68,7 @@ public class DashBoard extends ActionBarActivity implements NavigationDrawerFrag
 
 			return;
 		}
+		
 		setContentView(R.layout.activity_dash_board);
 
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -94,6 +85,8 @@ public class DashBoard extends ActionBarActivity implements NavigationDrawerFrag
 		tv_title.setPadding(5, 5, 5, 5);
 
 		tv_title.setGravity(Gravity.CENTER);	
+		
+		onNavigationDrawerItemSelected(2);
 
 		if(!getIntent().hasExtra("fromNotification"))
 		startNotificationService();
@@ -111,7 +104,6 @@ public class DashBoard extends ActionBarActivity implements NavigationDrawerFrag
 	@Override
 	public void onNavigationDrawerItemSelected(int position) 
 	{
-		// update the main content by replacing fragments
 		FragmentManager fragmentManager = getSupportFragmentManager();		
 		onSectionAttached(position);
 		switch (position)
@@ -319,7 +311,6 @@ public class DashBoard extends ActionBarActivity implements NavigationDrawerFrag
 			{
 				if(data.getData()!=null)
 				{
-					Uri uri=data.getData();
 					String[] filePathColumn = {MediaColumns.DATA};
 					Cursor cursor = getContentResolver().query(data.getData(),filePathColumn, null, null, null);
 					cursor.moveToFirst();
@@ -406,7 +397,6 @@ public class DashBoard extends ActionBarActivity implements NavigationDrawerFrag
 			{
 				if(data.getData()!=null)
 				{
-					Uri uri=data.getData();
 					String[] filePathColumn = {MediaColumns.DATA};
 					Cursor cursor = getContentResolver().query(data.getData(),filePathColumn, null, null, null);
 					cursor.moveToFirst();
@@ -443,7 +433,6 @@ public class DashBoard extends ActionBarActivity implements NavigationDrawerFrag
 			{
 				if(data.getData()!=null)
 				{
-					Uri uri=data.getData();
 					String[] filePathColumn = {MediaColumns.DATA};
 					Cursor cursor = getContentResolver().query(data.getData(),filePathColumn, null, null, null);
 					cursor.moveToFirst();
@@ -480,7 +469,7 @@ public class DashBoard extends ActionBarActivity implements NavigationDrawerFrag
 			{
 				if(data.getData()!=null)
 				{
-					Uri uri=data.getData();
+					
 					String[] filePathColumn = {MediaColumns.DATA};
 					Cursor cursor = getContentResolver().query(data.getData(),filePathColumn, null, null, null);
 					cursor.moveToFirst();
@@ -518,24 +507,6 @@ public class DashBoard extends ActionBarActivity implements NavigationDrawerFrag
 		}
 	}
 
-	private ServiceConnection serviceConnection=new ServiceConnection()
-	{
-
-		@Override
-		public void onServiceDisconnected(ComponentName arg0) 
-		{
-			System.out.println("onServiceDisconnected:"+arg0);
-			notificationService=null;			
-		}
-
-		@Override
-		public void onServiceConnected(ComponentName arg0, IBinder binder) 
-		{
-			System.out.println("onServiceConnected:"+arg0);
-			notificationService=((NotificationService.NotiBinder)binder).getService();
-			notificationService.registerLocationService();
-		}
-	};
 	@Override
 	protected void onDestroy() 
 	{

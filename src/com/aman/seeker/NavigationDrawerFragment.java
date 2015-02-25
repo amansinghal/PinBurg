@@ -28,7 +28,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.aman.utils.Config;
-import com.squareup.picasso.Picasso;
 
 public class NavigationDrawerFragment extends Fragment 
 {
@@ -45,7 +44,7 @@ public class NavigationDrawerFragment extends Fragment
 	private ListView mDrawerListView;
 	private View mFragmentContainerView;
 
-	public int mCurrentSelectedPosition = 0;
+	public int mCurrentSelectedPosition = 2;
 	private boolean mFromSavedInstanceState;
 	private boolean mUserLearnedDrawer;
 
@@ -168,6 +167,8 @@ public class NavigationDrawerFragment extends Fragment
 		mDrawerListView.setAdapter(adapter);
 
 		mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
+		
+		//selectItem(mCurrentSelectedPosition);
 
 		return v;
 	}

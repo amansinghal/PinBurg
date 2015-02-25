@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
@@ -17,7 +16,6 @@ import android.widget.ListView;
 import asynctasks.NewPinTask;
 
 import com.aman.ModelClasses.Pin;
-import com.aman.adapter.DummyAdapter;
 import com.aman.adapter.NewPinAdapter;
 import com.aman.seeker.R;
 import com.aman.utils.Config;
@@ -30,6 +28,7 @@ public class Frag_NewsFeed extends Fragment
 	ArrayList<Pin> pinData=new ArrayList<>();
 	NewPinTask task;
 	int page=1;
+	@SuppressWarnings("deprecation")
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) 
 	{

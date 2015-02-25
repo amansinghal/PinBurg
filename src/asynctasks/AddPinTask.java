@@ -23,8 +23,6 @@ import com.aman.utils.Config;
 import com.aman.utils.CustomMultiPartEntity;
 import com.aman.utils.CustomMultiPartEntity.ProgressListener;
 import com.aman.utils.CustomProgressDialog;
-import com.aman.utils.RestClient;
-import com.aman.utils.RestClient.RequestMethod;
 
 public class AddPinTask extends AsyncTask<String, Integer, Integer>
 {

@@ -109,10 +109,6 @@ public class Frag_Alert_Me extends Fragment implements OnClickListener
 		tv_km.setText(pref.getString("range","")+" Km");	
 	}
 
-	private void setToPrefrence() 
-	{
-		
-	}
 	private void initComponents(View v)
 	{
 		sb=(SeekBar)v.findViewById(R.id.sb_alert_me_range_setter);
@@ -129,6 +125,7 @@ public class Frag_Alert_Me extends Fragment implements OnClickListener
 		lv_category.setOnItemClickListener(onItemClickListener);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void onClick(View v) 
 	{
@@ -188,6 +185,7 @@ public class Frag_Alert_Me extends Fragment implements OnClickListener
 	}	
 	OnItemClickListener onItemClickListener=new OnItemClickListener()
 	{
+		@SuppressWarnings("unchecked")
 		@Override
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) 
 		{

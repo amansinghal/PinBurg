@@ -7,9 +7,7 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.aman.ModelClasses.CountryStateCity;
 import com.aman.ModelClasses.PlaceModel;
-import com.aman.utils.Config;
 import com.aman.utils.CustomProgressDialog;
 import com.aman.utils.RestClient;
 import com.aman.utils.RestClient.RequestMethod;
@@ -46,7 +44,6 @@ public class FindPlaceTask extends AsyncTask<String, Void, Integer>
 	protected Integer doInBackground(String... params) 
 	{
 		// TODO Auto-generated method stub
-		String data = "";
 		 
         // Obtain browser key from https://code.google.com/apis/console
         String key = "key=AIzaSyDGrAgt_GF5km6WlFEUjkZhd9Ucgi-U7Js";

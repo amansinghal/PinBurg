@@ -11,7 +11,6 @@ import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,7 +30,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 import asynctasks.CityTask;
 import asynctasks.CountryTask;
 import asynctasks.CountryTask.onTaskCompleteListener;
@@ -362,7 +360,6 @@ public class Frag_SignUp extends Fragment
 	@SuppressLint("NewApi")
 	public void onShakeSpnr(final Spinner v) 
 	{
-		final Drawable drawable=v.getBackground();
 		Animation shake = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
 		v.startAnimation(shake);
 		/*  new Handler().postDelayed(new Runnable()

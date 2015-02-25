@@ -17,16 +17,13 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -46,7 +43,6 @@ import com.aman.seeker.R;
 import com.aman.utils.Config;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationChangeListener;
@@ -286,6 +282,7 @@ public class Frag_Tag_My_Burg extends Fragment
 
 		iv_add_pin_confirm.setOnClickListener(new OnClickListener()
 		{			
+			@SuppressWarnings("unchecked")
 			@Override
 			public void onClick(View arg0) 
 			{

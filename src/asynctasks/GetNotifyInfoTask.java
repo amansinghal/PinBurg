@@ -6,7 +6,6 @@ import java.util.HashMap;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.aman.ModelClasses.CountryStateCity;
 import com.aman.utils.Config;
 import com.aman.utils.CustomProgressDialog;
 import com.aman.utils.RestClient;
