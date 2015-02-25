@@ -62,6 +62,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.aman.seeker.Activity_Pin_Details"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name="com.aman.seeker.LoginOptionsActivity"
             android:label="@string/login"
             android:screenOrientation="portrait" >

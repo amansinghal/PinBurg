@@ -2,6 +2,7 @@ package com.aman.fragments;
 
 import java.util.ArrayList;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,15 +13,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import asynctasks.NewPinTask;
 
 import com.aman.ModelClasses.Pin;
 import com.aman.adapter.NewPinAdapter;
+import com.aman.seeker.Activity_Pin_Details;
 import com.aman.seeker.R;
 import com.aman.utils.Config;
 
-public class Frag_NewsFeed extends Fragment 
+public class Frag_NewsFeed extends Fragment implements OnItemClickListener 
 {
 	ListView lv_news_feeds;
 	SwipeRefreshLayout swipeRefreshLayout;
@@ -36,6 +40,7 @@ public class Frag_NewsFeed extends Fragment
 		View v=inflater.inflate(R.layout.fragment_newsfeed, container,false);
 		swipeRefreshLayout=(SwipeRefreshLayout)v;
 		lv_news_feeds=(ListView)v.findViewById(R.id.lv_news_feeds);
+		lv_news_feeds.setOnItemClickListener(this);
 		swipeRefreshLayout.setColorScheme(android.R.color.holo_blue_bright,R.color.app_theme_back,R.color.list_item_background,R.color.activated_listitem_color);
 		swipeRefreshLayout.setOnRefreshListener(new OnRefreshListener()
 		{			
@@ -161,5 +166,12 @@ public class Frag_NewsFeed extends Fragment
 		{
 			task.execute("",String.valueOf(page),"load");	
 		}
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) 
+	{		
+		Intent intent=new Intent(getActivity(),Activity_Pin_Details.class);
+		startActivity(intent);
 	}
 }
