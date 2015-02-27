@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -24,11 +25,13 @@ public class NewPinAdapter extends BaseAdapter
 	Context con;
 	ArrayList<Pin> pinData;
 	ImageLoader imageLoader;
+	int screenSize[];
 	public NewPinAdapter(Context con,ArrayList<Pin> pinData) 
 	{
 		this.con=con;
 		this.pinData=pinData;
-		imageLoader=ImageLoader.getInstance();		
+		imageLoader=ImageLoader.getInstance();
+		screenSize=Config.getScreenSize(con);
 	}
 
 	@Override
@@ -64,7 +67,7 @@ public class NewPinAdapter extends BaseAdapter
 
 			holder=new viewHolder();
 
-			v = inflater.inflate(R.layout.list_item_newsfeed,arg2, false);	
+			v = inflater.inflate(R.layout.list_item_newsfeed_,arg2, false);	
 			
 			holder.iv_place_pic=(ImageView)v.findViewById(R.id.iv_place_pic);
 			
@@ -80,7 +83,7 @@ public class NewPinAdapter extends BaseAdapter
 			
 			holder.rt_pin_rate=(RatingBar)v.findViewById(R.id.rt_pin_rating);
 			
-			holder.iv_place_pic.setLayoutParams(new LinearLayout.LayoutParams(Config.getScreenSize(con)[0]/3,LinearLayout.LayoutParams.MATCH_PARENT));
+			holder.iv_place_pic.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,Config.getScreenSize(con)[1]/3));
 
 			v.setTag(holder);
 		}
@@ -91,7 +94,7 @@ public class NewPinAdapter extends BaseAdapter
 								
 		if(pinData.get(position).images.size()==0)
 		{
-			holder.iv_place_pic.setImageDrawable(con.getResources().getDrawable(R.drawable.img_not_available));
+			imageLoader.displayImage("https://maps.googleapis.com/maps/api/staticmap?zoom=15&size=600x300&maptype=normal&markers=icon:http://chart.apis.google.com/chart?chst=d_map_pin_icon%26chld=cafe%257C996600%7Clabel:F%7C"+pinData.get(position).pin_lat+","+pinData.get(position).pin_long+"&scale=2", holder.iv_place_pic);
 		}
 		else
 		{
