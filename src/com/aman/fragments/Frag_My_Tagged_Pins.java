@@ -84,7 +84,7 @@ public class Frag_My_Tagged_Pins extends Fragment implements OnClickListener
 
 		lv_my_pins.setAdapter(adapter);
 
-		task=new NewPinTask(getActivity(),new NewPinTask.onTaskCompleteListener()
+		task=new NewPinTask(getActivity(),view,new NewPinTask.onTaskCompleteListener()
 		{		
 			@Override
 			public void ontaskComplete(ArrayList<Pin> pinData,String op_type) 
@@ -160,7 +160,7 @@ public class Frag_My_Tagged_Pins extends Fragment implements OnClickListener
 				{
 					return;
 				}
-				task=new NewPinTask(getActivity(),new NewPinTask.onTaskCompleteListener()
+				task=new NewPinTask(getActivity(),view,new NewPinTask.onTaskCompleteListener()
 				{		
 					@Override
 					public void ontaskComplete(ArrayList<Pin> pinData,String op_type) 
@@ -186,7 +186,7 @@ public class Frag_My_Tagged_Pins extends Fragment implements OnClickListener
 		{
 			return;
 		}
-		task=new NewPinTask(getActivity(),new NewPinTask.onTaskCompleteListener()
+		task=new NewPinTask(getActivity(),view,new NewPinTask.onTaskCompleteListener()
 		{		
 			@Override
 			public void ontaskComplete(ArrayList<Pin> pinData,String op_type) 

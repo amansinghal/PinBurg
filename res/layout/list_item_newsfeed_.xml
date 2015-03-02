@@ -2,19 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:pinburg="http://schemas.android.com/apk/res/com.aman.seeker"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#fff"
+    android:layout_height="wrap_content"    
+    android:padding="5dp"
     android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="10dp" >
+        android:orientation="vertical"        
+        >
 
-        <ImageView
+        <com.etsy.android.grid.util.DynamicHeightImageView
             android:id="@+id/iv_place_pic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,7 +37,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:paddingBottom="3dp"
                 android:paddingTop="3dp"
                 android:visibility="visible" >
@@ -90,6 +88,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
+                    android:visibility="gone"
                     android:background="@color/activated_listitem_color"
                      />
 
@@ -100,6 +99,7 @@
                     android:layout_marginTop="2dp"
                     android:gravity="right"
                     android:text="12 july 2014"
+                    android:visibility="gone"
                     android:textSize="@dimen/small_text_size_1" />
             </LinearLayout>
 

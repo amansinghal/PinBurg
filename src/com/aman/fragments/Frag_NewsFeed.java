@@ -23,25 +23,27 @@ import com.aman.adapter.NewPinAdapter;
 import com.aman.seeker.Activity_Pin_Details;
 import com.aman.seeker.R;
 import com.aman.utils.Config;
+import com.etsy.android.grid.StaggeredGridView;
 
 public class Frag_NewsFeed extends Fragment implements OnItemClickListener 
 {
-	ListView lv_news_feeds;
+	StaggeredGridView lv_news_feeds;
 	SwipeRefreshLayout swipeRefreshLayout;
 	NewPinAdapter adapter;
 	ArrayList<Pin> pinData=new ArrayList<>();
 	NewPinTask task;
 	int page=1;
+	View v;
 	@SuppressWarnings("deprecation")
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) 
 	{
 		// TODO Auto-generated method stub
-		View v=inflater.inflate(R.layout.fragment_newsfeed, container,false);
-		swipeRefreshLayout=(SwipeRefreshLayout)v;
-		lv_news_feeds=(ListView)v.findViewById(R.id.lv_news_feeds);
+		v=inflater.inflate(R.layout.fragment_newsfeed, container,false);		
+		swipeRefreshLayout=(SwipeRefreshLayout)v.findViewById(R.id.swipe_layout);
+		lv_news_feeds=(StaggeredGridView)v.findViewById(R.id.lv_news_feeds);
 		lv_news_feeds.setOnItemClickListener(this);
-		swipeRefreshLayout.setColorScheme(android.R.color.holo_blue_bright,R.color.app_theme_back,R.color.list_item_background,R.color.activated_listitem_color);
+		swipeRefreshLayout.setColorScheme(android.R.color.transparent,android.R.color.transparent,android.R.color.transparent,android.R.color.transparent);
 		swipeRefreshLayout.setOnRefreshListener(new OnRefreshListener()
 		{			
 			@Override
@@ -53,7 +55,7 @@ public class Frag_NewsFeed extends Fragment implements OnItemClickListener
 		});
 		adapter=new NewPinAdapter(getActivity(), pinData);
 		lv_news_feeds.setAdapter(adapter);
-		task=new NewPinTask(getActivity(),new NewPinTask.onTaskCompleteListener()
+		task=new NewPinTask(getActivity(),v,new NewPinTask.onTaskCompleteListener()
 		{		
 			@Override
 			public void ontaskComplete(ArrayList<Pin> pinData,String op_type) 
@@ -102,7 +104,7 @@ public class Frag_NewsFeed extends Fragment implements OnItemClickListener
 				{
 					return;
 				}
-				task=new NewPinTask(getActivity(),new NewPinTask.onTaskCompleteListener()
+				task=new NewPinTask(getActivity(),v,new NewPinTask.onTaskCompleteListener()
 				{		
 					@Override
 					public void ontaskComplete(ArrayList<Pin> pinData,String op_type) 
@@ -128,7 +130,7 @@ public class Frag_NewsFeed extends Fragment implements OnItemClickListener
 		{
 			return;
 		}
-		task=new NewPinTask(getActivity(),new NewPinTask.onTaskCompleteListener()
+		task=new NewPinTask(getActivity(),v,new NewPinTask.onTaskCompleteListener()
 		{		
 			@Override
 			public void ontaskComplete(ArrayList<Pin> pinData,String op_type) 

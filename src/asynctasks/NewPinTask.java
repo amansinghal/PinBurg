@@ -8,9 +8,11 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.view.View;
 
 import com.aman.ModelClasses.Pin;
 import com.aman.utils.Config;
+import com.aman.utils.CustomProgressBarStyle;
 import com.aman.utils.CustomProgressDialog;
 import com.aman.utils.RestClient;
 import com.aman.utils.RestClient.RequestMethod;
@@ -24,12 +26,14 @@ public class NewPinTask extends AsyncTask<String, Void, Integer>
 	ArrayList<Pin> pinData;
 	String op_type;
 	boolean needProgressDialog;
-	public NewPinTask(Context context,onTaskCompleteListener listener,boolean needProgressDialog) 
+	CustomProgressBarStyle barStyle;
+	public NewPinTask(Context context,View view,onTaskCompleteListener listener,boolean needProgressDialog) 
 	{
 		this.context=context;
 		callbackListener=listener;
 		pinData=new ArrayList<>();
-		this.needProgressDialog=needProgressDialog;
+		this.needProgressDialog=needProgressDialog;	
+		barStyle=new CustomProgressBarStyle(view);
 	}
 
 	@Override
@@ -40,8 +44,9 @@ public class NewPinTask extends AsyncTask<String, Void, Integer>
 		dialog=new CustomProgressDialog(context);
 		dialog.setCanceledOnTouchOutside(false);
 		dialog.setCancelable(false);
-		if(needProgressDialog)
-		dialog.show();
+		barStyle.startProgress(context);
+		//if(needProgressDialog)
+		//dialog.show();
 	}
 
 	@Override
@@ -119,8 +124,9 @@ public class NewPinTask extends AsyncTask<String, Void, Integer>
 
 	protected void onPostExecute(Integer result) 
 	{
-		if(needProgressDialog)
-		dialog.dismiss();
+		//if(needProgressDialog)
+		//dialog.dismiss();
+		barStyle.stopProgress();
 		callbackListener.ontaskComplete(pinData,op_type);
 	}
 

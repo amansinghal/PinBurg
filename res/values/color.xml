@@ -8,4 +8,5 @@
     <color name="tv_view_comment">#2c557a</color>
     <color name="list_item_background">#F5E3FC</color>
 <color name="app_theme_back">#BC13FE</color>
+<color name="holo_blue_light">#ff33b5e5</color>
 </resources>

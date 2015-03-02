@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clickable="true"
     android:background="@color/list_item_background"
-    android:orientation="vertical"
-    android:padding="5dp" >
+    android:clickable="true"
+    android:orientation="vertical" >
 
-    <ListView
-        android:id="@+id/lv_news_feeds"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@android:color/transparent"
-         android:listSelector="@color/app_theme_back"
-        android:dividerHeight="5dp"        
-        android:scrollbars="none" ></ListView>
+        android:background="@color/list_item_background"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:padding="5dp" >
 
-</android.support.v4.widget.SwipeRefreshLayout>
+        <com.etsy.android.grid.StaggeredGridView
+            android:id="@+id/lv_news_feeds"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="5dp"
+            android:listSelector="@color/app_theme_back"
+            android:scrollbars="none" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</FrameLayout>

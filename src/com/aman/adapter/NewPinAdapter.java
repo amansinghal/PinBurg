@@ -1,14 +1,15 @@
 package com.aman.adapter;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import android.content.Context;
+import android.util.Log;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import com.aman.ModelClasses.Pin;
 import com.aman.seeker.R;
 import com.aman.utils.Config;
 import com.aman.utils.CustomTextView;
+import com.etsy.android.grid.util.DynamicHeightImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class NewPinAdapter extends BaseAdapter
@@ -26,12 +28,15 @@ public class NewPinAdapter extends BaseAdapter
 	ArrayList<Pin> pinData;
 	ImageLoader imageLoader;
 	int screenSize[];
+	private Random mRandom;
+	private static final SparseArray<Double> sPositionHeightRatios = new SparseArray<Double>();
 	public NewPinAdapter(Context con,ArrayList<Pin> pinData) 
 	{
 		this.con=con;
 		this.pinData=pinData;
 		imageLoader=ImageLoader.getInstance();
 		screenSize=Config.getScreenSize(con);
+		this.mRandom = new Random();
 	}
 
 	@Override
@@ -69,7 +74,7 @@ public class NewPinAdapter extends BaseAdapter
 
 			v = inflater.inflate(R.layout.list_item_newsfeed_,arg2, false);	
 			
-			holder.iv_place_pic=(ImageView)v.findViewById(R.id.iv_place_pic);
+			holder.iv_place_pic=(DynamicHeightImageView)v.findViewById(R.id.iv_place_pic);
 			
 			holder.tv_pin_cata_name=(CustomTextView)v.findViewById(R.id.tv_pin_catagory);
 			
@@ -83,7 +88,7 @@ public class NewPinAdapter extends BaseAdapter
 			
 			holder.rt_pin_rate=(RatingBar)v.findViewById(R.id.rt_pin_rating);
 			
-			holder.iv_place_pic.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,Config.getScreenSize(con)[1]/3));
+			//holder.iv_place_pic.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,Config.getScreenSize(con)[1]/3));
 
 			v.setTag(holder);
 		}
@@ -91,6 +96,10 @@ public class NewPinAdapter extends BaseAdapter
 		{
 			holder=(viewHolder)v.getTag();
 		}
+		
+		double positionHeight = getPositionRatio(position);
+	
+		holder.iv_place_pic.setHeightRatio(positionHeight);
 								
 		if(pinData.get(position).images.size()==0)
 		{
@@ -115,11 +124,29 @@ public class NewPinAdapter extends BaseAdapter
 	}
 	class viewHolder
 	{
-		ImageView iv_place_pic;
+		DynamicHeightImageView iv_place_pic;
 		CustomTextView tv_pin_name,tv_pin_des,tv_pin_cata_name,tv_pin_date;
 		RatingBar rt_pin_rate;
 		TextView tv_pin_country;
 	}
+	
+	private double getPositionRatio(final int position) {
+		double ratio = sPositionHeightRatios.get(position, 0.0);
+		// if not yet done generate and stash the columns height
+		// in our real world scenario this will be determined by
+		// some match based on the known height and width of the image
+		// and maybe a helpful way to get the column height!
+		if (ratio == 0) {
+		ratio = getRandomHeightRatio();
+		sPositionHeightRatios.append(position, ratio);
+		Log.d("TAG", "getPositionRatio:" + position + " ratio:" + ratio);
+		}
+		return ratio;
+		}
+		private double getRandomHeightRatio() {
+		return (mRandom.nextDouble() / 2.0) + 0.8; // height will be 1.0 - 1.5
+		// the width
+		}
 }
 
 
