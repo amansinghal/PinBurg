@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.view.View;
 
 import com.aman.ModelClasses.Pin;
+import com.aman.seeker.R;
 import com.aman.utils.Config;
 import com.aman.utils.CustomProgressBarStyle;
 import com.aman.utils.CustomProgressDialog;
@@ -33,7 +34,7 @@ public class NewPinTask extends AsyncTask<String, Void, Integer>
 		callbackListener=listener;
 		pinData=new ArrayList<>();
 		this.needProgressDialog=needProgressDialog;	
-		barStyle=new CustomProgressBarStyle(view);
+		barStyle=new CustomProgressBarStyle(view,context);
 	}
 
 	@Override
@@ -44,7 +45,7 @@ public class NewPinTask extends AsyncTask<String, Void, Integer>
 		dialog=new CustomProgressDialog(context);
 		dialog.setCanceledOnTouchOutside(false);
 		dialog.setCancelable(false);
-		barStyle.startProgress(context);
+		barStyle.startProgress(context,"Getting pins please wait...",context.getResources().getColor(R.color.activated_listitem_color));
 		//if(needProgressDialog)
 		//dialog.show();
 	}
@@ -67,7 +68,7 @@ public class NewPinTask extends AsyncTask<String, Void, Integer>
 			client.Execute(RequestMethod.POST);
 			response=client.getResponse();
 			JSONObject jsonObject=new JSONObject(response);
-			if (jsonObject.getString("error").equals("0"))
+			if (jsonObject.getString("success").equals("1"))
 			{				
 				JSONArray array=jsonObject.getJSONArray("result");
 				if(array.length()>0)
@@ -111,14 +112,21 @@ public class NewPinTask extends AsyncTask<String, Void, Integer>
 				{
 					return 0;
 				}
+			}	
+			else if(jsonObject.getString("error").equals("1"))
+			{
+				return -1;
 			}
-			return 1;
+			else
+			{
+				return 0;
+			}
 		}
 		catch (Exception e) 
 		{
-			// TODO: handle exception
+			// TODO: handle exception			
 			e.printStackTrace();
-			return 0;
+			return -1;
 		}
 	}
 
@@ -126,7 +134,13 @@ public class NewPinTask extends AsyncTask<String, Void, Integer>
 	{
 		//if(needProgressDialog)
 		//dialog.dismiss();
-		barStyle.stopProgress();
+		if(result==-1)
+			barStyle.setError("Error while loading the pins...");
+		else if(result==1)
+			barStyle.stopProgress();
+		else if(result==0)		
+			barStyle.hideableMessage("No more pins now.", 2000);
+		
 		callbackListener.ontaskComplete(pinData,op_type);
 	}
 
