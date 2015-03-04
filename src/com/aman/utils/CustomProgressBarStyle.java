@@ -135,7 +135,7 @@ public class CustomProgressBarStyle
 			public void onAnimationEnd(Animation animation) {
 				// TODO Auto-generated method stub
 				if(blinkNeeded)
-					textView.setAnimation(getBlinkAnimation());
+					textView.startAnimation(getBlinkAnimation());
 			}
 		});
 		animation.setFillAfter(true);

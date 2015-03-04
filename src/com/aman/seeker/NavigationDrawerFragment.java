@@ -44,7 +44,7 @@ public class NavigationDrawerFragment extends Fragment
 	private ListView mDrawerListView;
 	private View mFragmentContainerView;
 
-	public int mCurrentSelectedPosition = 2;
+	public int mCurrentSelectedPosition = 0;
 	private boolean mFromSavedInstanceState;
 	private boolean mUserLearnedDrawer;
 
@@ -162,7 +162,7 @@ public class NavigationDrawerFragment extends Fragment
 			}
 		});
 
-		adapter=new ArrayAdapter<String>(getActivity(),R.layout.drawer_text_view, new String[] {getString(R.string.title_newsfeed),getString(R.string.title_tagmyfav),getString(R.string.title_arroundme),getString(R.string.title_my_tagged_pins),getString(R.string.title_my_alert_me) });
+		adapter=new ArrayAdapter<String>(getActivity(),R.layout.drawer_text_view, new String[] {getString(R.string.title_pins),getString(R.string.title_tagmyfav),getString(R.string.title_my_alert_me) });
 
 		mDrawerListView.setAdapter(adapter);
 

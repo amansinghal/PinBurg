@@ -35,6 +35,7 @@ import com.aman.fragments.Frag_Alert_Me;
 import com.aman.fragments.Frag_My_Profile;
 import com.aman.fragments.Frag_My_Tagged_Pins;
 import com.aman.fragments.Frag_NewsFeed;
+import com.aman.fragments.Frag_Pins;
 import com.aman.fragments.Frag_Tag_My_Burg;
 import com.aman.utils.Config;
 import com.google.android.gms.maps.GoogleMap;
@@ -73,7 +74,7 @@ public class DashBoard extends ActionBarActivity implements NavigationDrawerFrag
 
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
 
-		mTitle = getString(R.string.title_newsfeed);
+		mTitle = getString(R.string.title_pins);
 
 		// Set up the drawer.
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,(DrawerLayout) findViewById(R.id.drawer_layout));
@@ -86,7 +87,7 @@ public class DashBoard extends ActionBarActivity implements NavigationDrawerFrag
 
 		tv_title.setGravity(Gravity.CENTER);	
 		
-		onNavigationDrawerItemSelected(2);
+		onNavigationDrawerItemSelected(0);
 
 		if(!getIntent().hasExtra("fromNotification"))
 		startNotificationService();
@@ -95,7 +96,6 @@ public class DashBoard extends ActionBarActivity implements NavigationDrawerFrag
 	public void startNotificationService() 
 	{
 		notificationIntent=new Intent(this,NotificationService.class);	
-
 		if(pref.getString("is_notify_service_enable", "1").equals("1"))
 		startService(notificationIntent);
 	}	
@@ -112,15 +112,12 @@ public class DashBoard extends ActionBarActivity implements NavigationDrawerFrag
 			fragmentManager.beginTransaction().replace(R.id.container,new Frag_My_Profile()).commit();
 			break;
 		case 0:
-			fragmentManager.beginTransaction().replace(R.id.container,new Frag_NewsFeed()).commit();
+			fragmentManager.beginTransaction().replace(R.id.container,new Frag_Pins()).commit();
 			break;
 		case 1:
 			fragmentManager.beginTransaction().replace(R.id.container,new Frag_Tag_My_Burg()).commit();
 			break;
-		case 3:
-			fragmentManager.beginTransaction().replace(R.id.container,new Frag_My_Tagged_Pins()).commit();
-			break;
-		case 4:
+		case 2:
 			fragmentManager.beginTransaction().replace(R.id.container,new Frag_Alert_Me()).commit();
 			break;
 		default:
@@ -137,18 +134,12 @@ public class DashBoard extends ActionBarActivity implements NavigationDrawerFrag
 			mTitle = getString(R.string.title_my_profile);
 			break;
 		case 0:
-			mTitle = getString(R.string.title_newsfeed);
+			mTitle = getString(R.string.title_pins);
 			break;
 		case 1:
 			mTitle = getString(R.string.title_tagmyfav);
-			break;
+			break;	
 		case 2:
-			mTitle = getString(R.string.title_arroundme);
-			break;
-		case 3:
-			mTitle = getString(R.string.title_my_tagged_pins);
-			break;
-		case 4:
 			mTitle = getString(R.string.title_my_alert_me);
 			break;
 

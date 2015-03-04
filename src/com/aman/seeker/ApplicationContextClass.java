@@ -18,8 +18,9 @@ public class ApplicationContextClass extends Application
 		super.onCreate();		
 		DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
 		.cacheInMemory(true)
+		.cacheOnDisk(true)
 		.imageScaleType(ImageScaleType.EXACTLY)
-		.displayer(new FadeInBitmapDisplayer(300)).resetViewBeforeLoading(true)
+		.displayer(new FadeInBitmapDisplayer(300))
 		.showImageForEmptyUri(R.drawable.img_not_available)
 		.showImageOnFail(R.drawable.error)
 		.showImageOnLoading(R.drawable.loadingimg).build();
