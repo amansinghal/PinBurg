@@ -11,13 +11,14 @@ import android.widget.LinearLayout;
 public class MyTabHost extends LinearLayout
 {
 	ArrayList<FragInfo> fragmentlist=new ArrayList<>();
+	
 	public MyTabHost(Context context)
 	{
 		super(context);
 		setOrientation(LinearLayout.HORIZONTAL);
 		setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
 	}
-
+		
 	public void addTabs(Fragment fragment,String title) throws MyTabHostException
 	{
 		if(fragment==null||title==null)
