@@ -1,5 +1,7 @@
 package com.aman.adapter;
 
+import grid.util.DynamicHeightImageView;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -10,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -18,7 +19,6 @@ import com.aman.ModelClasses.Pin;
 import com.aman.seeker.R;
 import com.aman.utils.Config;
 import com.aman.utils.CustomTextView;
-import com.etsy.android.grid.util.DynamicHeightImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class NewPinAdapter extends BaseAdapter
