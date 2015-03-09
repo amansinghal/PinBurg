@@ -1,11 +1,16 @@
 package com.aman.utils;
 
 import java.util.ArrayList;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
+import android.util.AttributeSet;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 public class MyTabHost extends LinearLayout
@@ -16,7 +21,12 @@ public class MyTabHost extends LinearLayout
 	{
 		super(context);
 		setOrientation(LinearLayout.HORIZONTAL);
-		setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
+		setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,getConvertedSP(60)));
+	}
+	
+	public MyTabHost(Context context,AttributeSet attr)
+	{
+		super(context, attr);
 	}
 		
 	public void addTabs(Fragment fragment,String title) throws MyTabHostException
@@ -29,6 +39,7 @@ public class MyTabHost extends LinearLayout
 		info.fragment=fragment;
 		info.title=title;
 		fragmentlist.add(info);
+		addView(getButton(title));
 	}
 	
 	public void addTabs(Fragment fragment,String title,Drawable iconDrawable) throws MyTabHostException
@@ -88,7 +99,7 @@ public class MyTabHost extends LinearLayout
 		public Bitmap iconBitmap;
 	}
 	
-	class MyTabHostException extends Exception
+	public class MyTabHostException extends Exception
 	{		 
 
 		private static final long serialVersionUID = 1L;
@@ -117,5 +128,20 @@ public class MyTabHost extends LinearLayout
 	    public String getMessage() {
 	        return message;
 	    }
+	}
+	
+	public Button getButton(String text)
+	{
+		Button button = new Button(getContext());
+		button.setText(text);
+		button.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT,1));
+		button.setGravity(Gravity.CENTER);
+		return button;
+	}
+	
+	public int getConvertedSP(int value)
+	{
+		int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,value, getResources().getDisplayMetrics());
+		return px;
 	}
 }

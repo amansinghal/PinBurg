@@ -1,5 +1,7 @@
 package com.aman.fragments;
 
+import grid.StaggeredGridView;
+
 import java.util.ArrayList;
 
 import android.content.Intent;
@@ -11,11 +13,10 @@ import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView.OnScrollListener;
 import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
 import asynctasks.NewPinTask;
 
 import com.aman.ModelClasses.Pin;
@@ -23,7 +24,6 @@ import com.aman.adapter.NewPinAdapter;
 import com.aman.seeker.Activity_Pin_Details;
 import com.aman.seeker.R;
 import com.aman.utils.Config;
-import com.etsy.android.grid.StaggeredGridView;
 
 public class Frag_NewsFeed extends Fragment implements OnItemClickListener 
 {

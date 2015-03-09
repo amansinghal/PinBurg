@@ -37,6 +37,7 @@ import com.aman.fragments.Frag_My_Tagged_Pins;
 import com.aman.fragments.Frag_NewsFeed;
 import com.aman.fragments.Frag_Pins;
 import com.aman.fragments.Frag_Tag_My_Burg;
+import com.aman.fragments.TabHostFragmentTest;
 import com.aman.utils.Config;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -112,7 +113,7 @@ public class DashBoard extends ActionBarActivity implements NavigationDrawerFrag
 			fragmentManager.beginTransaction().replace(R.id.container,new Frag_My_Profile()).commit();
 			break;
 		case 0:
-			fragmentManager.beginTransaction().replace(R.id.container,new Frag_Pins()).commit();
+			fragmentManager.beginTransaction().replace(R.id.container,new TabHostFragmentTest()).commit();
 			break;
 		case 1:
 			fragmentManager.beginTransaction().replace(R.id.container,new Frag_Tag_My_Burg()).commit();
