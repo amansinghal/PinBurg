@@ -10,8 +10,9 @@ import com.aman.seeker.DashBoard.PlaceholderFragment;
 import com.aman.seeker.R;
 import com.aman.utils.MyTabHost;
 import com.aman.utils.MyTabHost.MyTabHostException;
+import com.aman.utils.MyTabHost.onTabClickListener;
 
-public class TabHostFragmentTest extends Fragment
+public class TabHostFragmentTest extends Fragment implements onTabClickListener
 {
 	View v;
 	MyTabHost myTabHost;
@@ -31,7 +32,15 @@ public class TabHostFragmentTest extends Fragment
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		myTabHost.setTabClickListener(this);
+		
 		
 		return v;
+	}
+	
+	@Override
+	public void onTabClick(View v, int position)
+	{	
+		
 	}
 }
