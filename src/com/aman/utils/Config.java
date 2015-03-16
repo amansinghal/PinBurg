@@ -14,16 +14,13 @@ import org.apache.http.params.HttpParams;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.location.Location;
 import android.media.ExifInterface;
 import android.os.Build;
 import android.os.Environment;
@@ -34,13 +31,12 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
+import android.view.animation.Animation;
+import android.view.animation.Transformation;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.aman.ModelClasses.Pin;
 import com.google.android.gms.maps.model.LatLng;
@@ -371,5 +367,59 @@ public class Config
 		    } 
 		 
 		 
-	 } 	 	
+	 } 	 
+	 
+	 
+	 public static void expand(final View v) {
+	        v.measure(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+	        final int targetHeight = v.getMeasuredHeight();
+
+	        v.getLayoutParams().height = 0;
+	        v.setVisibility(View.VISIBLE);
+	        Animation a = new Animation()
+	        {
+	            @Override
+	            protected void applyTransformation(float interpolatedTime, Transformation t) {
+	                v.getLayoutParams().height = interpolatedTime == 1
+	                        ? LayoutParams.WRAP_CONTENT
+	                        : (int)(targetHeight * interpolatedTime);
+	                v.requestLayout();
+	            }
+
+	            @Override
+	            public boolean willChangeBounds() {
+	                return true;
+	            }
+	        };
+
+	        // 1dp/ms
+	        a.setDuration(200);
+	        v.startAnimation(a);
+	    }
+
+	    public static void collapse(final View v) {
+	        final int initialHeight = v.getMeasuredHeight();
+
+	        Animation a = new Animation()
+	        {
+	            @Override
+	            protected void applyTransformation(float interpolatedTime, Transformation t) {
+	                if(interpolatedTime == 1){
+	                    v.setVisibility(View.GONE);
+	                }else{
+	                    v.getLayoutParams().height = initialHeight - (int)(initialHeight * interpolatedTime);
+	                    v.requestLayout();
+	                }
+	            }
+
+	            @Override
+	            public boolean willChangeBounds() {
+	                return true;
+	            }
+	        };
+
+	        // 1dp/ms
+	        a.setDuration(200);
+	        v.startAnimation(a);
+	    }
 }
