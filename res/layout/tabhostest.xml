@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.aman.seeker"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animationCache="true"
     android:orientation="vertical" >
 
     <com.aman.utils.MyTabHost
         android:id="@+id/myTabHost1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:background="@color/activated_listitem_color"
+        android:paddingTop="5sp" >
     </com.aman.utils.MyTabHost>
-    
+
+    <FrameLayout
+        android:id="@+id/tabHostContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </FrameLayout>
+
 </LinearLayout>

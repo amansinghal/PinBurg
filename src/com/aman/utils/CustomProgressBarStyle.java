@@ -54,7 +54,7 @@ public class CustomProgressBarStyle
 		textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
 		textView.setText(msg);
 		textView.setPadding(0, (int)intotpx(5), 0,(int)intotpx(5));
-		textView.setTextSize(intotpx(8));
+		textView.setTextSize(intotpx(10));
 		textView.setGravity(Gravity.CENTER);
 		textView.setTextColor(context.getResources().getColor(android.R.color.white));			
 		linearLayout2.addView(textView);

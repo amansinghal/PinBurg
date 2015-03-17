@@ -33,9 +33,6 @@ import asynctasks.UploadFileTask;
 
 import com.aman.fragments.Frag_Alert_Me;
 import com.aman.fragments.Frag_My_Profile;
-import com.aman.fragments.Frag_My_Tagged_Pins;
-import com.aman.fragments.Frag_NewsFeed;
-import com.aman.fragments.Frag_Pins;
 import com.aman.fragments.Frag_Tag_My_Burg;
 import com.aman.fragments.TabHostFragmentTest;
 import com.aman.utils.Config;
@@ -52,11 +49,15 @@ public class DashBoard extends ActionBarActivity implements NavigationDrawerFrag
 	SharedPreferences pref;
 	public NotificationService notificationService;
 	public Intent notificationIntent;
+
 	public static final int IMAGE_SELECT=111,IMAGE_SELECT_ADD_IMG1=112,IMAGE_SELECT_ADD_IMG2=113,IMAGE_SELECT_ADD_IMG3=114;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
+
+		
+		
 
 		pref=getSharedPreferences(Config.PREF_KEY, MODE_PRIVATE);
 
@@ -70,8 +71,10 @@ public class DashBoard extends ActionBarActivity implements NavigationDrawerFrag
 
 			return;
 		}
-		
+
 		setContentView(R.layout.activity_dash_board);
+		
+	
 
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
 
@@ -87,18 +90,18 @@ public class DashBoard extends ActionBarActivity implements NavigationDrawerFrag
 		tv_title.setPadding(5, 5, 5, 5);
 
 		tv_title.setGravity(Gravity.CENTER);	
-		
+
 		onNavigationDrawerItemSelected(0);
 
 		if(!getIntent().hasExtra("fromNotification"))
-		startNotificationService();
+			startNotificationService();
 	}
 
 	public void startNotificationService() 
 	{
 		notificationIntent=new Intent(this,NotificationService.class);	
 		if(pref.getString("is_notify_service_enable", "1").equals("1"))
-		startService(notificationIntent);
+			startService(notificationIntent);
 	}	
 
 
@@ -461,7 +464,7 @@ public class DashBoard extends ActionBarActivity implements NavigationDrawerFrag
 			{
 				if(data.getData()!=null)
 				{
-					
+
 					String[] filePathColumn = {MediaColumns.DATA};
 					Cursor cursor = getContentResolver().query(data.getData(),filePathColumn, null, null, null);
 					cursor.moveToFirst();

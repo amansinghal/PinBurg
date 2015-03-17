@@ -368,9 +368,9 @@ public class Config
 		 
 		 
 	 } 	 
-	 
-	 
-	 public static void expand(final View v) {
+
+		 public static void expand(final View v) 
+		 {
 	        v.measure(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 	        final int targetHeight = v.getMeasuredHeight();
 
@@ -397,7 +397,8 @@ public class Config
 	        v.startAnimation(a);
 	    }
 
-	    public static void collapse(final View v) {
+	    public static void collapse(final View v) 
+		{
 	        final int initialHeight = v.getMeasuredHeight();
 
 	        Animation a = new Animation()
