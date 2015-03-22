@@ -3,6 +3,8 @@ package com.aman.seeker;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,8 +13,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.MediaStore.MediaColumns;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -108,7 +108,7 @@ public class DashBoard extends ActionBarActivity implements NavigationDrawerFrag
 	@Override
 	public void onNavigationDrawerItemSelected(int position) 
 	{
-		FragmentManager fragmentManager = getSupportFragmentManager();		
+		FragmentManager fragmentManager = getFragmentManager();
 		onSectionAttached(position);
 		switch (position)
 		{

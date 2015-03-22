@@ -2,25 +2,16 @@ package com.aman.fragments;
 
 import java.util.ArrayList;
 
+import android.app.Fragment;
 import android.graphics.Color;
-import android.net.NetworkInfo.State;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
+import com.aman.seeker.Activity_Dashboard;
 import com.aman.seeker.DashBoard.PlaceholderFragment;
 import com.aman.seeker.R;
-import com.aman.utils.Config;
 import com.aman.utils.MyTabHost;
 import com.aman.utils.MyTabHost.FragInfo;
 import com.aman.utils.MyTabHost.MyTabHostException;
@@ -57,6 +48,10 @@ public class TabHostFragmentTest extends Fragment implements onTabClickListener
 	@Override
 	public void onTabClick(View v, int position, ArrayList<FragInfo> tagItems)
 	{
+		if(((Activity_Dashboard)getActivity()).isDrawerOpen())
+		{
+			((Activity_Dashboard)getActivity()).closeDrawer();
+		}
 		getFragmentManager().beginTransaction().replace(R.id.tabHostContainer,tagItems.get(position).fragment).setCustomAnimations(R.anim.enter_anim,R.anim.exit_anim).commit();		
 	}
 

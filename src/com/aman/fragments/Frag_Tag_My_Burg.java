@@ -3,6 +3,7 @@ package com.aman.fragments;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -10,7 +11,6 @@ import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -46,7 +46,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationChangeListener;
-import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -432,7 +432,7 @@ public class Frag_Tag_My_Burg extends Fragment
 	{		
 		if (googleMap == null)
 		{
-			googleMap = ((SupportMapFragment)getActivity().getSupportFragmentManager().findFragmentById(R.id.map_tag_my_pins)).getMap();
+			googleMap = ((MapFragment)getActivity().getFragmentManager().findFragmentById(R.id.map_tag_my_pins)).getMap();
 		}
 	}
 	private void getCatagory()	

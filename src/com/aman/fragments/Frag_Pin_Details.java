@@ -1,7 +1,7 @@
 package com.aman.fragments;
 
+import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 
 import com.aman.seeker.R;
 import com.aman.utils.Config;
-import com.google.android.gms.internal.fm;
 
 public class Frag_Pin_Details extends Fragment
 {

@@ -1,13 +1,12 @@
 package com.aman.seeker;
 
-import com.aman.fragments.Frag_My_Profile;
+import android.app.Activity;
+import android.app.FragmentManager;
+import android.os.Bundle;
+
 import com.aman.fragments.Frag_Pin_Details;
 
-import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBarActivity;
-
-public class Activity_Pin_Details extends ActionBarActivity
+public class Activity_Pin_Details extends Activity
 {
 	FragmentManager fragmentManager ;
 	@Override
@@ -15,7 +14,7 @@ public class Activity_Pin_Details extends ActionBarActivity
 	{	
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pin_details);
-		fragmentManager = getSupportFragmentManager();		
+		fragmentManager = getFragmentManager();		
 		fragmentManager.beginTransaction().replace(R.id.activity_pin_detail_container,new Frag_Pin_Details()).commit();
 	}
 }

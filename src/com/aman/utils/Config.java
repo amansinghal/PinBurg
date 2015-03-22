@@ -33,6 +33,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
 import android.view.animation.Transformation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -394,6 +395,7 @@ public class Config
 
 	        // 1dp/ms
 	        a.setDuration(200);
+	        a.setInterpolator(new LinearInterpolator());
 	        v.startAnimation(a);
 	    }
 
@@ -421,6 +423,7 @@ public class Config
 
 	        // 1dp/ms
 	        a.setDuration(200);
+	        a.setInterpolator(new LinearInterpolator());
 	        v.startAnimation(a);
 	    }
 }

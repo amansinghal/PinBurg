@@ -3,6 +3,7 @@ package com.aman.utils;
 import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
+import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -11,7 +12,6 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
-import android.support.v4.app.Fragment;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -28,8 +28,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aman.seeker.R;
-import com.aman.utils.MyTabHost.FragInfo;
-import com.aman.utils.MyTabHost.MyTabHostException;
 
 public class MyTabHost extends LinearLayout implements OnClickListener
 {
