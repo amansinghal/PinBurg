@@ -28,6 +28,7 @@ public class Activity_Dashboard extends Activity implements OnClickListener
 	private ListView lv_navigation_drawer;
 	private ArrayAdapter<String> adapter;
 	private FragmentManager fragmentManager = getFragmentManager();
+	DrawerStatusListener drawerStatusListener;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{	
@@ -39,6 +40,11 @@ public class Activity_Dashboard extends Activity implements OnClickListener
 		lv_navigation_drawer.setAdapter(adapter);
 	}
 
+	public void setDrawerStatusChangeListesner(DrawerStatusListener drawerStatusListener)
+	{
+		this.drawerStatusListener = drawerStatusListener;
+	}
+	
 	private void initViews()
 	{
 		iv_drawer_btn = (ImageView)findViewById(R.id.activity_dashboard_iv_drawer_btn);
@@ -96,10 +102,14 @@ public class Activity_Dashboard extends Activity implements OnClickListener
 	{
 		if(ll_drawer_layout.getTag() != null)
 		{
+			if(drawerStatusListener != null)
+			drawerStatusListener.onDrawerStatusChangeListener(true);
 			return false;
 		}
 		else
 		{
+			if(drawerStatusListener != null)
+			drawerStatusListener.onDrawerStatusChangeListener(false);
 			return true;			
 		}
 	}
@@ -110,6 +120,8 @@ public class Activity_Dashboard extends Activity implements OnClickListener
 		iv_drawer_btn.startAnimation(getPopAnimation());
 		Config.expand(ll_drawer_layout);
 		ll_drawer_layout.setTag(null);
+		findViewById(R.id.navigation_shader).setVisibility(View.VISIBLE);
+		findViewById(R.id.navigation_shader).bringToFront();
 		//iv_drawer_btn.setImageDrawable(getResources().getDrawable(R.drawable.drawer_open));
 	}
 
@@ -118,6 +130,7 @@ public class Activity_Dashboard extends Activity implements OnClickListener
 		iv_drawer_btn.startAnimation(getPopAnimation());
 		Config.collapse(ll_drawer_layout);
 		ll_drawer_layout.setTag(5);
+		findViewById(R.id.navigation_shader).setVisibility(View.GONE);
 		//iv_drawer_btn.setImageDrawable(getResources().getDrawable(R.drawable.drawer_close));
 	}
 
@@ -139,6 +152,11 @@ public class Activity_Dashboard extends Activity implements OnClickListener
 		rotateAnimation.setInterpolator(new LinearInterpolator()); 
 		rotateAnimation.setFillAfter(true); 
 		return rotateAnimation;
+	}
+	
+	public interface DrawerStatusListener
+	{
+		public void onDrawerStatusChangeListener(boolean isOpen); 
 	}
 
 }

@@ -42,7 +42,6 @@ public class TabHostFragmentTest extends Fragment implements onTabClickListener
 		}
 		myTabHost.setTabClickListener(this);
 		myTabHost.setDefaultFragment(0);
-
 		return v;
 	}
 	@Override
@@ -53,8 +52,5 @@ public class TabHostFragmentTest extends Fragment implements onTabClickListener
 			((Activity_Dashboard)getActivity()).closeDrawer();
 		}
 		getFragmentManager().beginTransaction().replace(R.id.tabHostContainer,tagItems.get(position).fragment).setCustomAnimations(R.anim.enter_anim,R.anim.exit_anim).commit();		
-	}
-
-
-
+	}	
 }
