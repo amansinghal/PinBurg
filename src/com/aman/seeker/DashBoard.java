@@ -56,9 +56,6 @@ public class DashBoard extends ActionBarActivity implements NavigationDrawerFrag
 	{
 		super.onCreate(savedInstanceState);
 
-		
-		
-
 		pref=getSharedPreferences(Config.PREF_KEY, MODE_PRIVATE);
 
 		if(!pref.getBoolean("isuserlogin", false))

@@ -18,6 +18,7 @@ import android.widget.EditText;
 import asynctasks.LoginTask;
 import asynctasks.LoginTask.onTaskCompleteListener;
 
+import com.aman.seeker.Activity_Dashboard;
 import com.aman.seeker.DashBoard;
 import com.aman.seeker.R;
 import com.aman.utils.Config;
@@ -73,7 +74,7 @@ public class Frag_Login extends Fragment
  								.putString("is_notify_service_enable", jObject.getJSONObject("user").getString("is_notify_service_enable"))
 								.putString("photo_path","http://www.pinburg.com"+jObject.getJSONObject("user").getString("photo_path"))
 								.commit();
-								startActivity(new Intent(getActivity(),DashBoard.class));
+								startActivity(new Intent(getActivity(),Activity_Dashboard.class));
 								getActivity().finish();
 							}
 							else

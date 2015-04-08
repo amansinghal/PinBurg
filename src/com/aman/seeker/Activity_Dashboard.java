@@ -5,8 +5,10 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
@@ -38,13 +40,14 @@ public class Activity_Dashboard extends Activity implements OnClickListener
 		initViews();
 		adapter=new ArrayAdapter<String>(this,R.layout.drawer_text_view, new String[] {getString(R.string.title_pins),getString(R.string.title_tagmyfav),getString(R.string.title_my_alert_me) });
 		lv_navigation_drawer.setAdapter(adapter);
+		lv_navigation_drawer.setItemChecked(0, true);
 	}
 
 	public void setDrawerStatusChangeListesner(DrawerStatusListener drawerStatusListener)
 	{
 		this.drawerStatusListener = drawerStatusListener;
 	}
-	
+
 	private void initViews()
 	{
 		iv_drawer_btn = (ImageView)findViewById(R.id.activity_dashboard_iv_drawer_btn);
@@ -53,6 +56,7 @@ public class Activity_Dashboard extends Activity implements OnClickListener
 		ll_drawer_layout.setOnClickListener(this);
 		ll_drawer_layout.setTag(5);
 		((ImageView)ll_drawer_layout.findViewById(R.id.iv_profile_image)).setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,Config.getScreenSize(this)[1]/3));
+		//(ll_drawer_layout.findViewById(R.id.navigation_shader)).setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,Config.getScreenSize(this)[1]/2));
 		//ll_drawer_layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,Config.getScreenSize(this)[1]/3));
 		lv_navigation_drawer = (ListView)findViewById(R.id.lv_navigation_drawer);		
 		Config.collapse(ll_drawer_layout);
@@ -97,40 +101,49 @@ public class Activity_Dashboard extends Activity implements OnClickListener
 			closeDrawer();
 		}
 	}
-	
+
 	public boolean isDrawerOpen()
 	{
 		if(ll_drawer_layout.getTag() != null)
 		{
 			if(drawerStatusListener != null)
-			drawerStatusListener.onDrawerStatusChangeListener(true);
+				drawerStatusListener.onDrawerStatusChangeListener(true);
 			return false;
 		}
 		else
 		{
 			if(drawerStatusListener != null)
-			drawerStatusListener.onDrawerStatusChangeListener(false);
+				drawerStatusListener.onDrawerStatusChangeListener(false);
 			return true;			
 		}
 	}
-	
+
 	public void openDrawer() 
 	{
 		//rotateAnimationClock();
 		iv_drawer_btn.startAnimation(getPopAnimation());
 		Config.expand(ll_drawer_layout);
-		ll_drawer_layout.setTag(null);
-		findViewById(R.id.navigation_shader).setVisibility(View.VISIBLE);
-		findViewById(R.id.navigation_shader).bringToFront();
+		ll_drawer_layout.setTag(null);		
+		findViewById(R.id.navigation_shader).setOnTouchListener(onTouchListener);
 		//iv_drawer_btn.setImageDrawable(getResources().getDrawable(R.drawable.drawer_open));
 	}
+
+	OnTouchListener onTouchListener = new OnTouchListener()
+	{		
+		@Override
+		public boolean onTouch(View v, MotionEvent event) 
+		{
+			manageDrawer();
+			return false;
+		}
+	};
 
 	public void closeDrawer()
 	{
 		iv_drawer_btn.startAnimation(getPopAnimation());
 		Config.collapse(ll_drawer_layout);
 		ll_drawer_layout.setTag(5);
-		findViewById(R.id.navigation_shader).setVisibility(View.GONE);
+		findViewById(R.id.navigation_shader).setOnTouchListener(null);
 		//iv_drawer_btn.setImageDrawable(getResources().getDrawable(R.drawable.drawer_close));
 	}
 
@@ -153,7 +166,7 @@ public class Activity_Dashboard extends Activity implements OnClickListener
 		rotateAnimation.setFillAfter(true); 
 		return rotateAnimation;
 	}
-	
+
 	public interface DrawerStatusListener
 	{
 		public void onDrawerStatusChangeListener(boolean isOpen); 

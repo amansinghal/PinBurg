@@ -382,7 +382,7 @@ public class Config
 	            @Override
 	            protected void applyTransformation(float interpolatedTime, Transformation t) {
 	                v.getLayoutParams().height = interpolatedTime == 1
-	                        ? LayoutParams.WRAP_CONTENT
+	                        ? LayoutParams.MATCH_PARENT
 	                        : (int)(targetHeight * interpolatedTime);
 	                v.requestLayout();
 	            }

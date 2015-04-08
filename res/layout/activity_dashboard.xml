@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-   xmlns:pinburg="http://schemas.android.com/apk/res/com.aman.seeker"
+    xmlns:pinburg="http://schemas.android.com/apk/res/com.aman.seeker"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:padding="10dp"
-        android:background="@color/activated_listitem_color">
+        android:layout_height="wrap_content"
+        android:background="@color/activated_listitem_color"
+        android:padding="10dp" >
 
         <ImageView
             android:id="@+id/activity_dashboard_iv_drawer_btn"
@@ -17,8 +17,8 @@
             android:layout_height="35dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:padding="8dp"
             android:background="@drawable/circle_shape_checked"
+            android:padding="8dp"
             android:src="@drawable/option" />
 
         <com.aman.utils.CustomTextView
@@ -27,30 +27,53 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            pinburg:customTextFont="GABRIOLA.TTF"
+            android:text="Pinburg"
             android:textColor="@color/list_item_background"
             android:textSize="25sp"
-            android:text="Pinburg" />
-
+            android:textStyle="bold"
+            pinburg:customTextFont="GABRIOLA.TTF" />
     </RelativeLayout>
-<include 
-    android:id="@+id/navigation_drawer"
-    android:layout_width="match_parent"
-    android:layout_height="300dp"
-    layout="@layout/fragment_navigation_drawer"/>
 
-<FrameLayout
-    android:id="@+id/activity_dashboard_container"
-    android:layout_width="match_parent"
-    android:layout_height="0dp" 
-    android:layout_weight="1">
-    <View
-        android:id="@+id/navigation_shader" 
-        android:layout_height="match_parent"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:clickable="true"
-		android:background="#99000000"
-        />
-</FrameLayout>
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <FrameLayout
+            android:id="@+id/activity_dashboard_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/navigation_drawer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"                
+            android:visibility="visible" >
+
+            <include
+                android:id="@+id/navigation_drawer_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/fragment_navigation_drawer" />
+            
+            <TextView 
+                android:id="@+id/navigation_shader"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:background="#99000000"/>
+<!-- 
+            <View
+                android:id="@+id/navigation_shader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"   
+                android:layout_weight="1"      
+                android:visibility="gone"                       
+                android:clickable="true" /> -->
+        </LinearLayout>
+    </FrameLayout>
 
 </LinearLayout>
