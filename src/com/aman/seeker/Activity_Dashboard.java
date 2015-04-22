@@ -1,9 +1,12 @@
 package com.aman.seeker;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,10 +22,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.aman.fragments.Frag_NewsFeed;
+import com.aman.fragments.Frag_Search_Places;
 import com.aman.fragments.TabHostFragmentTest;
+import com.aman.seeker.DashBoard.PlaceholderFragment;
 import com.aman.utils.Config;
+import com.aman.utils.MyTabHost;
+import com.aman.utils.MyTabHost.FragInfo;
+import com.aman.utils.MyTabHost.MyTabHostException;
+import com.aman.utils.MyTabHost.onTabClickListener;
 
-public class Activity_Dashboard extends Activity implements OnClickListener
+public class Activity_Dashboard extends Activity implements OnClickListener, onTabClickListener
 {
 	private ImageView iv_drawer_btn;
 	private LinearLayout ll_drawer_layout;
@@ -31,13 +41,33 @@ public class Activity_Dashboard extends Activity implements OnClickListener
 	private ArrayAdapter<String> adapter;
 	private FragmentManager fragmentManager = getFragmentManager();
 	DrawerStatusListener drawerStatusListener;
+	private MyTabHost myTabHost;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{	
 		super.onCreate(savedInstanceState);
-		checkAlreadyLogin();
+		
+		if(!checkAlreadyLogin())
+		{
+			return;		
+		}
+		
 		setContentView(R.layout.activity_dashboard);
+		
 		initViews();
+		
+		try 
+		{
+			myTabHost.addTabs(new Frag_NewsFeed(), "New Pins",getResources().getDrawable(R.drawable.heart));
+			myTabHost.addTabs(new Frag_Search_Places(), "Explore",getResources().getDrawable(R.drawable.been_here));
+			myTabHost.addTabs(PlaceholderFragment.newInstance(3), "Title3",getResources().getDrawable(R.drawable.review));
+		} 
+		catch (MyTabHostException e)
+		{
+			e.printStackTrace();
+		}
+		myTabHost.setTabClickListener(this);
+		myTabHost.setDefaultFragment(1);
 		adapter=new ArrayAdapter<String>(this,R.layout.drawer_text_view, new String[] {getString(R.string.title_pins),getString(R.string.title_tagmyfav),getString(R.string.title_my_alert_me) });
 		lv_navigation_drawer.setAdapter(adapter);
 		lv_navigation_drawer.setItemChecked(0, true);
@@ -50,6 +80,8 @@ public class Activity_Dashboard extends Activity implements OnClickListener
 
 	private void initViews()
 	{
+		myTabHost=(MyTabHost)findViewById(R.id.myTabHost1);
+		myTabHost.setCircleColor(getResources().getColor(R.color.list_item_background), Color.WHITE);
 		iv_drawer_btn = (ImageView)findViewById(R.id.activity_dashboard_iv_drawer_btn);
 		iv_drawer_btn.setOnClickListener(this);
 		ll_drawer_layout = (LinearLayout)findViewById(R.id.navigation_drawer);
@@ -60,10 +92,19 @@ public class Activity_Dashboard extends Activity implements OnClickListener
 		//ll_drawer_layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,Config.getScreenSize(this)[1]/3));
 		lv_navigation_drawer = (ListView)findViewById(R.id.lv_navigation_drawer);		
 		Config.collapse(ll_drawer_layout);
-		fragmentManager.beginTransaction().add(R.id.activity_dashboard_container,new TabHostFragmentTest() ).commit();
 	}
+	
+	@Override
+	public void onTabClick(View v, int position, ArrayList<FragInfo> tagItems)
+	{
+		if(isDrawerOpen())
+		{
+			closeDrawer();
+		}
+		getFragmentManager().beginTransaction().replace(R.id.activity_dashboard_container,tagItems.get(position).fragment).setCustomAnimations(R.anim.enter_anim,R.anim.exit_anim).commit();		
+	}	
 
-	private void checkAlreadyLogin()
+	private boolean checkAlreadyLogin()
 	{
 		pref=getSharedPreferences(Config.PREF_KEY, MODE_PRIVATE);
 
@@ -73,9 +114,16 @@ public class Activity_Dashboard extends Activity implements OnClickListener
 			{
 				pref.edit().putBoolean("isuserlogin", false).commit();
 			}
+			
+			finish();
+			
 			startActivity(new Intent(this,LoginOptionsActivity.class));
-
-			return;
+			
+			return false;
+		}
+		else
+		{
+			return true;
 		}
 	}
 

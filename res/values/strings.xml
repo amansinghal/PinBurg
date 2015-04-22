@@ -31,6 +31,10 @@
    	<string name="mapview">Map-View</string>
    	<string name="notifyme">Notify me</string>
    	<string name="restart">Restart</string>
-   	<string name="cancel">Cancel</string>   
-
+   	<string name="cancel">Cancel</string>
+   	<string name="places_according_to">Explore according to..</string>   
+	<string name="near_to_you">Near to You</string>
+	<string name="taste">Taste</string>
+	<string name="categories">Category</string>
+	<string name="highly_rated">Highly Rated</string>
 </resources>

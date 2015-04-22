@@ -1,9 +1,6 @@
 package com.aman.fragments;
 
-import grid.StaggeredGridView;
-
 import java.util.ArrayList;
-
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -14,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.ListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -27,7 +25,7 @@ import com.aman.utils.Config;
 
 public class Frag_NewsFeed extends Fragment implements OnItemClickListener 
 {
-	StaggeredGridView lv_news_feeds;
+	ListView lv_news_feeds;
 	SwipeRefreshLayout swipeRefreshLayout;
 	NewPinAdapter adapter;
 	ArrayList<Pin> pinData=new ArrayList<>();
@@ -41,7 +39,7 @@ public class Frag_NewsFeed extends Fragment implements OnItemClickListener
 		// TODO Auto-generated method stub
 		v=inflater.inflate(R.layout.fragment_newsfeed, container,false);		
 		swipeRefreshLayout=(SwipeRefreshLayout)v.findViewById(R.id.swipe_layout);
-		lv_news_feeds=(StaggeredGridView)v.findViewById(R.id.lv_news_feeds);
+		lv_news_feeds=(ListView)v.findViewById(R.id.lv_news_feeds);
 		lv_news_feeds.setOnItemClickListener(this);
 		swipeRefreshLayout.setColorScheme(android.R.color.transparent,android.R.color.transparent,android.R.color.transparent,android.R.color.transparent);
 		swipeRefreshLayout.setOnRefreshListener(new OnRefreshListener()

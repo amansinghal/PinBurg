@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@color/app_theme_back"
+    android:background="@color/list_item_background"
+    android:padding="2dp"
     android:baselineAligned="false"
     android:orientation="horizontal"
     >
@@ -13,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:background="@color/activated_listitem_color" >
+        >
 
         <ImageView
             android:id="@+id/iv_profile_image"
@@ -50,6 +51,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:choiceMode="singleChoice"
+        android:background="@color/app_theme_back"
         android:listSelector="@color/activated_listitem_color" >
     </ListView>
 

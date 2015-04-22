@@ -227,7 +227,7 @@ public class MyTabHost extends LinearLayout implements OnClickListener
 		return textView;
 	}
 	
-	@SuppressLint("NewApi") 
+	@SuppressWarnings("deprecation")
 	public LinearLayout getRoundedIconsWithText(String title,boolean selected,Drawable icon)
 	{
 		LinearLayout linearLayout = new LinearLayout(getContext());
@@ -245,7 +245,7 @@ public class MyTabHost extends LinearLayout implements OnClickListener
 		
 		ImageView imageView = new ImageView(getContext());		
 		imageView.setId(R.id.imageView1);
-		imageView.setLayoutParams(new LinearLayout.LayoutParams(getConvertedSP(50),getConvertedSP(50),1));
+		imageView.setLayoutParams(new LinearLayout.LayoutParams(getConvertedSP(40),getConvertedSP(40),1));
 		imageView.setPadding(getConvertedSP(5),getConvertedSP(5),getConvertedSP(5),getConvertedSP(5));
 		imageView.setImageDrawable(icon);
 		linearLayout.addView(imageView);
@@ -254,13 +254,13 @@ public class MyTabHost extends LinearLayout implements OnClickListener
 		{
 			textView.setTypeface(null, Typeface.BOLD);
 			//imageView.setBackground(getResources().getDrawable(R.drawable.circle_shape_checked));
-			imageView.setBackground(getCircle(colorChecked));
+			imageView.setBackgroundDrawable(getCircle(colorChecked));
 		}
 		else
 		{
 			textView.setTypeface(null, Typeface.NORMAL);
 			//imageView.setBackground(getResources().getDrawable(R.drawable.circle_shape_unchecked));
-			imageView.setBackground(getCircle(colorUnchecked));
+			imageView.setBackgroundDrawable(getCircle(colorUnchecked));
 		}
 		linearLayout.setOnClickListener(this);
 		linearLayout.setTag(fragmentlist.size());
@@ -303,7 +303,8 @@ public class MyTabHost extends LinearLayout implements OnClickListener
 		}
 	}
 	
-	@SuppressLint("NewApi") public void changeSelectedBackGroundRoundedIconsWithText(int position)
+	@SuppressWarnings("deprecation")
+	public void changeSelectedBackGroundRoundedIconsWithText(int position)
 	{
 		for(int i= 0; i < fragmentlist.size() ; i++)
 		{
@@ -313,14 +314,14 @@ public class MyTabHost extends LinearLayout implements OnClickListener
 				fragmentlist.get(i).linearLayout=(LinearLayout) getChildAt(i);
 				fragmentlist.get(i).linearLayout.findViewById(R.id.imageView1).startAnimation(getPopAnimation());
 				//((ImageView)fragmentlist.get(i).linearLayout.findViewById(R.id.imageView1)).setBackground(getResources().getDrawable(R.drawable.circle_shape_checked));
-				((ImageView)fragmentlist.get(i).linearLayout.findViewById(R.id.imageView1)).setBackground(getCircle(colorChecked));
+				((ImageView)fragmentlist.get(i).linearLayout.findViewById(R.id.imageView1)).setBackgroundDrawable(getCircle(colorChecked));
 			}
 			else
 			{				
 				((TextView) getChildAt(i).findViewById(R.id.textView1)).setTypeface(null, Typeface.NORMAL);
 				fragmentlist.get(i).linearLayout=(LinearLayout) getChildAt(i);
 				//((ImageView)fragmentlist.get(i).linearLayout.findViewById(R.id.imageView1)).setBackground(getResources().getDrawable(R.drawable.circle_shape_unchecked));
-				((ImageView)fragmentlist.get(i).linearLayout.findViewById(R.id.imageView1)).setBackground(getCircle(colorUnchecked));
+				((ImageView)fragmentlist.get(i).linearLayout.findViewById(R.id.imageView1)).setBackgroundDrawable(getCircle(colorUnchecked));
 			}
 		}
 	}

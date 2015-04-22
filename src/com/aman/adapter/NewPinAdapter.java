@@ -1,7 +1,5 @@
 package com.aman.adapter;
 
-import grid.util.DynamicHeightImageView;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -12,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -72,9 +72,9 @@ public class NewPinAdapter extends BaseAdapter
 
 			holder=new viewHolder();
 
-			v = inflater.inflate(R.layout.list_item_newsfeed_,arg2, false);	
+			v = inflater.inflate(R.layout.list_item_newsfeed,arg2, false);	
 			
-			holder.iv_place_pic=(DynamicHeightImageView)v.findViewById(R.id.iv_place_pic);
+			holder.iv_place_pic=(ImageView)v.findViewById(R.id.iv_place_pic);
 			
 			holder.tv_pin_cata_name=(CustomTextView)v.findViewById(R.id.tv_pin_catagory);
 			
@@ -88,7 +88,7 @@ public class NewPinAdapter extends BaseAdapter
 			
 			holder.rt_pin_rate=(RatingBar)v.findViewById(R.id.rt_pin_rating);
 			
-			//holder.iv_place_pic.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,Config.getScreenSize(con)[1]/3));
+			holder.iv_place_pic.setLayoutParams(new LinearLayout.LayoutParams(Config.getScreenSize(con)[0]/3,Config.getScreenSize(con)[0]/3));
 
 			v.setTag(holder);
 		}
@@ -97,9 +97,9 @@ public class NewPinAdapter extends BaseAdapter
 			holder=(viewHolder)v.getTag();
 		}
 		
-		double positionHeight = getPositionRatio(position);
+		//double positionHeight = getPositionRatio(position);
 	
-		holder.iv_place_pic.setHeightRatio(positionHeight);
+		//holder.iv_place_pic.setHeightRatio(positionHeight);
 								
 		if(pinData.get(position).images.size()==0)
 		{
@@ -124,7 +124,7 @@ public class NewPinAdapter extends BaseAdapter
 	}
 	class viewHolder
 	{
-		DynamicHeightImageView iv_place_pic;
+		ImageView iv_place_pic;
 		CustomTextView tv_pin_name,tv_pin_des,tv_pin_cata_name,tv_pin_date;
 		RatingBar rt_pin_rate;
 		TextView tv_pin_country;
