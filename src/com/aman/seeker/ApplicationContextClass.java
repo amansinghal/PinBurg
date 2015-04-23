@@ -1,6 +1,8 @@
 package com.aman.seeker;
 
 import android.app.Application;
+import android.location.Location;
+
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -10,6 +12,8 @@ import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 public class ApplicationContextClass extends Application 
 {	
+	
+	public Location location = null;
 	@SuppressWarnings("deprecation")
 	@Override
 	public void onCreate() 
@@ -31,7 +35,7 @@ public class ApplicationContextClass extends Application
 		.memoryCache(new WeakMemoryCache())
 		.discCacheSize(100 * 1024 * 1024).build();
 
-		ImageLoader.getInstance().init(config);			
-				
+		ImageLoader.getInstance().init(config);	
+		
 	}
 }

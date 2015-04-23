@@ -34,6 +34,7 @@
                 android:gravity="center_vertical"
                 android:text="Standford,London"
                 android:textAppearance="?android:attr/textAppearanceSmall"
+                android:background="@android:color/transparent"
                 android:textColor="@color/activated_listitem_color" >
             </AutoCompleteTextView>
         </LinearLayout>

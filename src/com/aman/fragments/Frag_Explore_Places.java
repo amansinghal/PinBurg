@@ -1,6 +1,7 @@
 package com.aman.fragments;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,9 +9,10 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.aman.seeker.Activity_Explore_Category;
 import com.aman.seeker.R;
 
-public class Frag_Search_Places extends Fragment implements OnClickListener
+public class Frag_Explore_Places extends Fragment implements OnClickListener
 {
 	View v;
 	TextView tv_near,tv_category,tv_highly_rated,tv_taste;
@@ -40,7 +42,9 @@ public class Frag_Search_Places extends Fragment implements OnClickListener
 		switch (v.getId())
 		{
 		case R.id.frag_search_tv_categories:
-
+			
+			callForCategorisedPlaces();
+			
 			break;
 
 		case R.id.frag_search_tv_highly_rated:
@@ -55,5 +59,11 @@ public class Frag_Search_Places extends Fragment implements OnClickListener
 
 			break;
 		}
+	}
+	
+	private void callForCategorisedPlaces()
+	{
+		Intent intent = new Intent(getActivity(),Activity_Explore_Category.class);
+		startActivity(intent);
 	}
 }

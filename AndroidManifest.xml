@@ -71,6 +71,18 @@
             android:theme="@style/Theme.AppCompat.Light"
             android:screenOrientation="portrait" >
         </activity>
+         <activity
+            android:name="com.aman.seeker.Activity_Choose_Category"
+            android:label="@string/login"
+            android:theme="@style/MyTheme"
+            android:screenOrientation="portrait" >
+        </activity>
+         <activity
+            android:name="com.aman.seeker.Activity_Explore_Category"
+            android:label="@string/login"
+            android:theme="@style/MyTheme"
+            android:screenOrientation="portrait" >
+        </activity>
         <!-- Goolge API Key -->
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"

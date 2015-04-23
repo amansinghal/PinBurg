@@ -8,6 +8,23 @@
         android:id="@+id/activity_explore_category_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
+
+        <ProgressBar
+            android:id="@+id/activity_explore_category_pb_progress"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@+id/activity_explore_category_tv_no_category_alert"            
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/no_category_selected"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
     </FrameLayout>
 
 </LinearLayout>

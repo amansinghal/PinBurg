@@ -23,7 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.aman.fragments.Frag_NewsFeed;
-import com.aman.fragments.Frag_Search_Places;
+import com.aman.fragments.Frag_Explore_Places;
 import com.aman.fragments.TabHostFragmentTest;
 import com.aman.seeker.DashBoard.PlaceholderFragment;
 import com.aman.utils.Config;
@@ -59,7 +59,7 @@ public class Activity_Dashboard extends Activity implements OnClickListener, onT
 		try 
 		{
 			myTabHost.addTabs(new Frag_NewsFeed(), "New Pins",getResources().getDrawable(R.drawable.heart));
-			myTabHost.addTabs(new Frag_Search_Places(), "Explore",getResources().getDrawable(R.drawable.been_here));
+			myTabHost.addTabs(new Frag_Explore_Places(), "Explore",getResources().getDrawable(R.drawable.been_here));
 			myTabHost.addTabs(PlaceholderFragment.newInstance(3), "Title3",getResources().getDrawable(R.drawable.review));
 		} 
 		catch (MyTabHostException e)
