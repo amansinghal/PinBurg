@@ -266,7 +266,7 @@ public class CustomProgressBarStyle
 		{			
 			LinearLayout linearLayout=(LinearLayout)view;			
 			View getRemovableView=getViewsByTag(linearLayout, "fromView");
-			getRemovableView.startAnimation(getOutAnimation());
+			//getRemovableView.startAnimation(getOutAnimation());
 			if(getRemovableView!=null)
 			{	
 				getRemovableView.startAnimation(getOutAnimation());
@@ -277,7 +277,7 @@ public class CustomProgressBarStyle
 		{			
 			RelativeLayout linearLayout=(RelativeLayout)view;	
 			View getRemovableView=getViewsByTag(linearLayout, "fromView");
-			getRemovableView.startAnimation(getOutAnimation());
+			//getRemovableView.startAnimation(getOutAnimation());
 			if(getRemovableView!=null)
 			{	
 				getRemovableView.startAnimation(getOutAnimation());

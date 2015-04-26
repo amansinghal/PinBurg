@@ -22,12 +22,13 @@ import com.aman.utils.GPSTracker;
 
 public class Activity_Explore_Category extends ActionBarActivity
 {
-	private String selectedCategory="";
+	public String selectedCategory="";
 	private ActionBar actionBar;
 	private TextView tv_alert_no_category;
 	public ProgressBar pb_progress;
 	private FragmentManager fragManager;
 	private Location location;
+	public Location locationForSearch;
 	private boolean shouldCheckForChange = false;
 	public GPSTracker gps;
 	@Override
@@ -91,8 +92,8 @@ public class Activity_Explore_Category extends ActionBarActivity
 			{
 				location = ((ApplicationContextClass)getApplicationContext()).location = gps.getLocation();
 				Intent intent = new Intent(this,Activity_Choose_Category.class);
-				startActivityForResult(intent,Activity_Choose_Category.REQ_CODE_CHOOSE_CATEGORY);
-				shouldCheckForChange = false;
+				startActivityForResult(intent,Activity_Choose_Category.REQ_CODE_CHOOSE_CATEGORY);				
+				shouldCheckForChange = false;				
 			}
 			else
 			{				

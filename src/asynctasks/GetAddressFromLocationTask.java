@@ -81,6 +81,7 @@ public class GetAddressFromLocationTask extends AsyncTask<Double, Void, Integer>
 	{
 
 		String address = String.format(Locale.ENGLISH,"http://maps.googleapis.com/maps/api/geocode/json?latlng=%1$f,%2$f&sensor=true&language="+Locale.getDefault().getCountry(), lat, lng);
+		Log.e("Requesting URL----->>>", address);
 		HttpGet httpGet = new HttpGet(address);
 		HttpClient client = new DefaultHttpClient();
 		HttpResponse response;
