@@ -6,6 +6,7 @@ import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
@@ -43,7 +44,15 @@ public class Activity_Explore_Category extends ActionBarActivity
 
 		gps= new GPSTracker(this);
 		
-		callForChooseCategory();	
+		gps.dialog.setOnCancelListener(new OnCancelListener()
+		{			
+			@Override
+			public void onCancel(DialogInterface dialog) 
+			{			
+				callForChooseCategory();	
+			}
+		});
+				
 	}
 
 

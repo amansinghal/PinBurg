@@ -49,10 +49,10 @@ public class GPSTracker implements LocationListener
 	double longitude;
 
 	//The minimum distance to change updates in metters
-	private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; //10 metters
+	private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 0; //10 metters
 
 	//The minimum time beetwen updates in milliseconds
-	private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1; // 1 minute
+	private static final long MIN_TIME_BW_UPDATES = 0; // 1 minute
 
 	//Declaring a Location Manager
 	protected LocationManager locationManager;
@@ -67,7 +67,7 @@ public class GPSTracker implements LocationListener
 
 	public Location getLocation()
 	{
-		dialog = ProgressDialog.show(mContext, null, "Getting your current location..",true,false);
+		dialog = ProgressDialog.show(mContext, null, "Getting your current location..",false,false);
 		try
 		{
 			locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
@@ -98,6 +98,9 @@ public class GPSTracker implements LocationListener
 						location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 						updateGPSCoordinates();
 					}
+					
+					//return location;
+					
 				}
 
 				//if GPS Enabled get lat/long using GPS Services
@@ -147,7 +150,7 @@ public class GPSTracker implements LocationListener
 
 	public void stopUsingGPS()
 	{
-		if (locationManager != null)
+		if (locationManager != null) 
 		{
 			locationManager.removeUpdates(GPSTracker.this);
 		}
