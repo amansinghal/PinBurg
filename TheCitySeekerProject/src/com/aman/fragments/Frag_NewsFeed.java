@@ -41,7 +41,7 @@ public class Frag_NewsFeed extends Fragment implements OnItemClickListener
 		swipeRefreshLayout=(SwipeRefreshLayout)v.findViewById(R.id.swipe_layout);
 		lv_news_feeds=(ListView)v.findViewById(R.id.lv_news_feeds);
 		lv_news_feeds.setOnItemClickListener(this);
-		swipeRefreshLayout.setColorScheme(android.R.color.transparent,android.R.color.transparent,android.R.color.transparent,android.R.color.transparent);
+		swipeRefreshLayout.setColorScheme(android.R.color.black,android.R.color.holo_blue_bright,android.R.color.holo_red_dark,R.color.activated_listitem_color);
 		swipeRefreshLayout.setOnRefreshListener(new OnRefreshListener()
 		{			
 			@Override

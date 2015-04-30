@@ -719,7 +719,7 @@ public abstract class MenuDrawer extends ViewGroup {
     /**
      * Starts animating the indicator to a new position.
      */
-    private void startAnimatingIndicator() {
+    public void startAnimatingIndicator() {
         mIndicatorStartPos = getIndicatorStartPos();
         mIndicatorAnimating = true;
         mIndicatorScroller.startScroll(0.0f, 1.0f, INDICATOR_ANIM_DURATION);

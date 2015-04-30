@@ -222,6 +222,7 @@ public class Frag_Explore_Places_List_View extends Fragment implements OnClickLi
 			public void ontaskComplete(ArrayList<Pin> pinData) 
 			{
 				Frag_Explore_Places_List_View.this.pinData.clear();
+				adapter.notifyDataSetChanged();
 				if(!pinData.isEmpty())
 				{					
 					Frag_Explore_Places_List_View.this.pinData.addAll(pinData);

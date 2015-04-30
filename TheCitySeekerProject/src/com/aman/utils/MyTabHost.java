@@ -22,6 +22,8 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
+import android.view.animation.TranslateAnimation;
+import android.view.animation.Animation.AnimationListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -240,7 +242,6 @@ public class MyTabHost extends LinearLayout implements OnClickListener
 		textView.setTextColor(Color.WHITE);
 		textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT,1));
 		textView.setTextAppearance(getContext(), android.R.attr.textAppearanceSmall);		
-		textView.setTextAppearance(getContext(), android.R.attr.textAppearanceSmall);
 		textView.setPadding(getConvertedSP(5),0,0,0);
 		
 		ImageView imageView = new ImageView(getContext());		
@@ -248,20 +249,29 @@ public class MyTabHost extends LinearLayout implements OnClickListener
 		imageView.setLayoutParams(new LinearLayout.LayoutParams(getConvertedSP(40),getConvertedSP(40),1));
 		imageView.setPadding(getConvertedSP(5),getConvertedSP(5),getConvertedSP(5),getConvertedSP(5));
 		imageView.setImageDrawable(icon);
+		View view = new View(getContext());
+		view.setId(android.R.id.empty);	
+		view.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_dark));
 		linearLayout.addView(imageView);
-		linearLayout.addView(textView);
+		linearLayout.addView(textView);		
 		if(selected)
 		{
 			textView.setTypeface(null, Typeface.BOLD);
+			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,getConvertedSP(5));
+			params.gravity = Gravity.BOTTOM;
+			view.setLayoutParams(params);
 			//imageView.setBackground(getResources().getDrawable(R.drawable.circle_shape_checked));
 			imageView.setBackgroundDrawable(getCircle(colorChecked));
 		}
 		else
 		{
 			textView.setTypeface(null, Typeface.NORMAL);
+			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,getConvertedSP(0));
+			params.gravity = Gravity.BOTTOM;
 			//imageView.setBackground(getResources().getDrawable(R.drawable.circle_shape_unchecked));
 			imageView.setBackgroundDrawable(getCircle(colorUnchecked));
 		}
+		linearLayout.addView(view);
 		linearLayout.setOnClickListener(this);
 		linearLayout.setTag(fragmentlist.size());
 		return linearLayout;
@@ -306,24 +316,41 @@ public class MyTabHost extends LinearLayout implements OnClickListener
 	@SuppressWarnings("deprecation")
 	public void changeSelectedBackGroundRoundedIconsWithText(int position)
 	{
+		//float fromX=0.0f,toX=0.0f;
 		for(int i= 0; i < fragmentlist.size() ; i++)
 		{
 			if(i==position)
-			{				
+			{		
+				fragmentlist.get(i).isSelected = true;
 				((TextView) getChildAt(i).findViewById(R.id.textView1)).setTypeface(null, Typeface.BOLD);
 				fragmentlist.get(i).linearLayout=(LinearLayout) getChildAt(i);
 				fragmentlist.get(i).linearLayout.findViewById(R.id.imageView1).startAnimation(getPopAnimation());
+				LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,getConvertedSP(5));
+				params.gravity = Gravity.BOTTOM;
+				fragmentlist.get(i).linearLayout.findViewById(android.R.id.empty).setLayoutParams(params);
 				//((ImageView)fragmentlist.get(i).linearLayout.findViewById(R.id.imageView1)).setBackground(getResources().getDrawable(R.drawable.circle_shape_checked));
 				((ImageView)fragmentlist.get(i).linearLayout.findViewById(R.id.imageView1)).setBackgroundDrawable(getCircle(colorChecked));
+			//	toX = fragmentlist.get(i).linearLayout.getX();
+			//	Log.e("TabHost Indicator To X", ""+toX);
 			}
 			else
 			{				
 				((TextView) getChildAt(i).findViewById(R.id.textView1)).setTypeface(null, Typeface.NORMAL);
 				fragmentlist.get(i).linearLayout=(LinearLayout) getChildAt(i);
+				LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,getConvertedSP(0));
+				params.gravity = Gravity.BOTTOM;
+				fragmentlist.get(i).linearLayout.findViewById(android.R.id.empty).setLayoutParams(params);
 				//((ImageView)fragmentlist.get(i).linearLayout.findViewById(R.id.imageView1)).setBackground(getResources().getDrawable(R.drawable.circle_shape_unchecked));
 				((ImageView)fragmentlist.get(i).linearLayout.findViewById(R.id.imageView1)).setBackgroundDrawable(getCircle(colorUnchecked));
+				/*if(fragmentlist.get(i).isSelected)
+				{
+				fromX = fragmentlist.get(i).linearLayout.getX();
+				Log.e("TabHost Indicator From X", ""+fromX);
+				fragmentlist.get(i).isSelected = false;
+				}*/				
 			}
-		}
+		}		
+		//fragmentlist.get(0).linearLayout.findViewById(android.R.id.empty).startAnimation(getComeAnimation(fromX, toX));		
 	}
 	
 	public int[] getScreenSize(Context context) 
@@ -358,7 +385,13 @@ public class MyTabHost extends LinearLayout implements OnClickListener
 	        return biggerCircle;
 	}
 	
-	
+	public Animation getComeAnimation(float fromX,float toX)
+	{
+		Animation animation = new TranslateAnimation(Animation.RELATIVE_TO_SELF,fromX, Animation.RELATIVE_TO_SELF, toX,Animation.RELATIVE_TO_SELF, Animation.RELATIVE_TO_SELF, Animation.RELATIVE_TO_SELF, Animation.RELATIVE_TO_SELF);	
+		animation.setFillAfter(true);
+		animation.setDuration(1000);                            
+		return animation;
+	}
 	
 	public void setCircleColor(int itemIsChecked,int itemIsUnchecked)
 	{

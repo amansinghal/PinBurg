@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/activated_listitem_color"
-        android:padding="8dp" >
+        android:padding="5dp" >
 
         <ImageView
             android:id="@+id/activity_dashboard_iv_drawer_btn"
@@ -32,6 +32,16 @@
             android:textSize="25sp"
             android:textStyle="bold"
             pinburg:customTextFont="GABRIOLA.TTF" />
+
+        <ImageView
+            android:id="@+id/activity_dashboard_iv_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            android:src="@android:drawable/ic_menu_search" />
+
     </RelativeLayout>
 
     <FrameLayout
@@ -43,14 +53,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" >
-
-            <com.aman.utils.MyTabHost
-                android:id="@+id/myTabHost1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/activated_listitem_color"
-                android:paddingTop="5sp" >
-            </com.aman.utils.MyTabHost>
 
             <FrameLayout
                 android:id="@+id/activity_dashboard_container"

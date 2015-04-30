@@ -1,36 +1,37 @@
 package com.aman.fragments;
 
 import java.util.ArrayList;
-import com.aman.ModelClasses.Pin;
-import com.aman.adapter.NewPinAdapter;
-import com.aman.seeker.R;
-import com.aman.utils.Config;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
+import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
-import android.widget.AbsListView.OnScrollListener;
 import asynctasks.NewPinTask;
+
+import com.aman.ModelClasses.Pin;
+import com.aman.adapter.NewPinAdapter;
+import com.aman.seeker.R;
+import com.aman.utils.Config;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 public class Frag_My_Tagged_Pins extends Fragment implements OnClickListener
 {
@@ -120,7 +121,7 @@ public class Frag_My_Tagged_Pins extends Fragment implements OnClickListener
 	{		
 		if (googleMap == null)
 		{
-			googleMap = ((SupportMapFragment)getActivity().getSupportFragmentManager().findFragmentById(R.id.map_my_tagged_pins)).getMap();
+			googleMap = ((MapFragment)getActivity().getFragmentManager().findFragmentById(R.id.map_my_tagged_pins)).getMap();
 			
 			googleMap.getUiSettings().setMyLocationButtonEnabled(false);
 

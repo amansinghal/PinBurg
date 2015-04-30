@@ -16,6 +16,7 @@
         android:ems="10"
         android:hint="Search your place here..."
         android:padding="10dp"
+        android:textColor="@color/activated_listitem_color"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:visibility="gone" >
     </AutoCompleteTextView>
@@ -26,7 +27,7 @@
 
         <fragment
             android:id="@+id/map_tag_my_pins"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:name="com.google.android.gms.maps.MapFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

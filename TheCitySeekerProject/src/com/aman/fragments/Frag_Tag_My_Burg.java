@@ -53,7 +53,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class Frag_Tag_My_Burg extends Fragment 
+public class Frag_Tag_My_Burg extends Fragment implements OnClickListener 
 {
 	GoogleMap googleMap = null;
 
@@ -69,7 +69,7 @@ public class Frag_Tag_My_Burg extends Fragment
 
 	LinearLayout ll_tag_my_pin_confirm,ll_pin_detail_up,ll_pin_detail_down;
 
-	ImageView iv_ok,iv_cancel,iv_add_pin_confirm,iv_add_pin_cancel,iv_pin_details_img1,iv_pin_details_img2,iv_pin_details_img3;
+	ImageView iv_ok,iv_cancel,iv_add_pin_confirm,iv_add_pin_cancel,iv_pin_details_img1,iv_pin_details_img2,iv_pin_details_img3,iv_search;
 
 	TextView tv_tag_my_pin;
 
@@ -80,14 +80,18 @@ public class Frag_Tag_My_Burg extends Fragment
 	String target_pin_lat="",target_pin_long="";
 
 	SharedPreferences pref;	
+	
+	Context context;
 
 	@Override
-	public View onCreateView(final LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) 	
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) 	
 
 	{
 		// TODO Auto-generated method stub	
-		pref=getActivity().getSharedPreferences(Config.PREF_KEY, Context.MODE_PRIVATE);
+ 		pref=getActivity().getSharedPreferences(Config.PREF_KEY, Context.MODE_PRIVATE);
 
+		//view = inflater.inflate(R.layout.map_layout_tag_my_pins, container, false);
+		
 		if (view != null) 
 		{			
 			ViewGroup parent = (ViewGroup) view.getParent();
@@ -101,8 +105,9 @@ public class Frag_Tag_My_Burg extends Fragment
 		}
 		catch (InflateException e)
 		{
-			/* map is already there, just return view as it is */
+			 //map is already there, just return view as it is 
 		}
+		context = getActivity();
 
 		ll_tag_my_pin_confirm=(LinearLayout)view.findViewById(R.id.ll_tag_my_pin_confirm);
 
@@ -155,7 +160,7 @@ public class Frag_Tag_My_Burg extends Fragment
 						return;
 					}
 				}
-				FindPlaceTask task=new FindPlaceTask(getActivity(), new FindPlaceTask.onTaskCompleteListener()
+				FindPlaceTask task=new FindPlaceTask(context, new FindPlaceTask.onTaskCompleteListener()
 				{							
 					@Override
 					public void ontaskComplete(ArrayList<PlaceModel> listPlaces) 
@@ -168,7 +173,7 @@ public class Frag_Tag_My_Burg extends Fragment
 							{
 								dropdownContainer.add(listPlaces.get(i).desciption);
 							}
-							ArrayAdapter<String> adapter=new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, dropdownContainer);
+							ArrayAdapter<String> adapter=new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, dropdownContainer);
 							autocomptv_search.setAdapter(adapter);
 							autocomptv_search.showDropDown();
 						}								
@@ -424,10 +429,28 @@ public class Frag_Tag_My_Burg extends Fragment
 
 			}
 		});
+		
+		
+		initForSearch();
+		
+		iv_search.setOnClickListener(this);
 
 		return view;
 	}
 
+	private void initForSearch()
+	{
+		iv_search = (ImageView)getActivity().findViewById(R.id.activity_dashboard_iv_search);
+		iv_search.setVisibility(View.VISIBLE);
+	}
+	
+	@Override
+	public void onDetach() 
+	{
+		super.onDetach();
+		iv_search.setVisibility(View.GONE);
+	}
+	
 	public void init()
 	{		
 		if (googleMap == null)
@@ -457,5 +480,30 @@ public class Frag_Tag_My_Burg extends Fragment
 			}
 		});
 		task.execute();
+	}
+	
+	@Override
+	public void onDestroy() 
+	{		
+		super.onDestroy();		
+	}
+
+	@Override
+	public void onClick(View v) 
+	{
+		if(R.id.activity_dashboard_iv_search == v.getId())
+		{
+			if(iv_search.getTag() == null)
+			{
+				autocomptv_search.setVisibility(View.VISIBLE);
+				iv_search.setTag(10);
+			}
+			else
+			{
+				autocomptv_search.setVisibility(View.GONE);
+				iv_search.setTag(null);
+			}
+		}
+		
 	}
 }

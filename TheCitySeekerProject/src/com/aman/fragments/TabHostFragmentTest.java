@@ -32,8 +32,8 @@ public class TabHostFragmentTest extends Fragment implements onTabClickListener
 		try 
 		{
 			myTabHost.addTabs(new Frag_NewsFeed(), "New Pins",getResources().getDrawable(R.drawable.heart));
-			myTabHost.addTabs(PlaceholderFragment.newInstance(2), "Title2",getResources().getDrawable(R.drawable.been_here));
-			myTabHost.addTabs(PlaceholderFragment.newInstance(3), "Title3",getResources().getDrawable(R.drawable.review));
+			myTabHost.addTabs(new Frag_Explore_Places(), "Explore Pins",getResources().getDrawable(R.drawable.been_here));
+			myTabHost.addTabs(new Frag_My_Tagged_Pins(), "My Pins",getResources().getDrawable(R.drawable.review));
 		} 
 		catch (MyTabHostException e)
 		{
@@ -41,7 +41,7 @@ public class TabHostFragmentTest extends Fragment implements onTabClickListener
 			e.printStackTrace();
 		}
 		myTabHost.setTabClickListener(this);
-		myTabHost.setDefaultFragment(0);
+		myTabHost.setDefaultFragment(1);
 		return v;
 	}
 	@Override
