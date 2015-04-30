@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:pinburg="http://schemas.android.com/apk/res/com.aman.seeker"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/activated_listitem_color"
+        android:padding="8dp" >
+
+        <ImageView
+            android:id="@+id/activity_dashboard_iv_drawer_btn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/circle_shape_checked"
+            android:padding="8dp"
+            android:src="@drawable/option" />
+
+        <com.aman.utils.CustomTextView
+            android:id="@+id/customTextView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Pinburg"
+            android:textColor="@color/list_item_background"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            pinburg:customTextFont="GABRIOLA.TTF" />
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <com.aman.utils.MyTabHost
+                android:id="@+id/myTabHost1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/activated_listitem_color"
+                android:paddingTop="5sp" >
+            </com.aman.utils.MyTabHost>
+
+            <FrameLayout
+                android:id="@+id/activity_dashboard_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+            </FrameLayout>
+        </LinearLayout>
+
+   <!--      <LinearLayout
+            android:id="@+id/navigation_drawer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="visible" >
+
+            <include
+                android:id="@+id/navigation_drawer_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/fragment_navigation_drawer"
+                android:paddingTop="2dp" />
+
+            <TextView
+                android:id="@+id/navigation_shader"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="#99000000"
+                android:clickable="true" />
+        </LinearLayout> -->
+    </FrameLayout>
+
+</LinearLayout>

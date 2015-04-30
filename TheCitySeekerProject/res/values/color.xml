@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="activated_listitem_color">#550176</color>
+    <color name="blue_color">#2c557a</color>
+    <color name="heading">#626367</color>
+    <color name="border">#e5e5e5</color>
+    <color name="tv_view_comment">#2c557a</color>
+    <color name="list_item_background">#F5E3FC</color>
+<color name="app_theme_back">#BC13FE</color>
+<color name="holo_blue_light">#ff33b5e5</color>
+</resources>
