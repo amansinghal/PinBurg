@@ -38,9 +38,11 @@ import asynctasks.FindPlaceTask;
 import asynctasks.PlaceDetailsTask;
 
 import com.aman.ModelClasses.PlaceModel;
+import com.aman.seeker.Activity_Dashboard;
 import com.aman.seeker.DashBoard;
 import com.aman.seeker.R;
 import com.aman.utils.Config;
+import com.aman.utils.MyTabHost;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
@@ -82,6 +84,8 @@ public class Frag_Tag_My_Burg extends Fragment implements OnClickListener
 	SharedPreferences pref;	
 	
 	Context context;
+	
+	private MyTabHost myTabHost;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) 	
@@ -90,7 +94,8 @@ public class Frag_Tag_My_Burg extends Fragment implements OnClickListener
 		// TODO Auto-generated method stub	
  		pref=getActivity().getSharedPreferences(Config.PREF_KEY, Context.MODE_PRIVATE);
 
-		//view = inflater.inflate(R.layout.map_layout_tag_my_pins, container, false);
+		//view = inflater.inflate(R.layout.map_layout_tag_my_pins, container, false); 		
+ 		
 		
 		if (view != null) 
 		{			
@@ -108,6 +113,8 @@ public class Frag_Tag_My_Burg extends Fragment implements OnClickListener
 			 //map is already there, just return view as it is 
 		}
 		context = getActivity();
+		
+		myTabHost = ((Activity_Dashboard)context).myTabHost;
 
 		ll_tag_my_pin_confirm=(LinearLayout)view.findViewById(R.id.ll_tag_my_pin_confirm);
 
@@ -299,6 +306,7 @@ public class Frag_Tag_My_Burg extends Fragment implements OnClickListener
 						// TODO Auto-generated method stub
 						if(success)
 						{
+							myTabHost.setVisibility(View.VISIBLE);
 							et_pin_detail_address.setText("");								
 							ll_pin_detail_down.setVisibility(View.GONE);
 							ll_pin_detail_up.setVisibility(View.GONE);
@@ -322,9 +330,9 @@ public class Frag_Tag_My_Burg extends Fragment implements OnClickListener
 						}
 					}
 				});
-				if(Config.getText(et_pin_detail_address).isEmpty()&&Config.getText(et_pin_detail_description).isEmpty()&&Config.getText(et_pin_detail_name).isEmpty())
+				if(Config.getText(et_pin_detail_address).isEmpty()||Config.getText(et_pin_detail_description).isEmpty()||Config.getText(et_pin_detail_name).isEmpty())
 				{
-					Config.alertDialogBox(getActivity(), (ActionBarActivity)getActivity(),null,"The entries must not be empty.", false);
+					Config.alertDialogBox(getActivity(), null,null,"The entries must not be empty.", false);
 				}
 				else
 				{						
@@ -346,6 +354,7 @@ public class Frag_Tag_My_Burg extends Fragment implements OnClickListener
 			{
 				// TODO Auto-generated method stub
 				googleMap.clear();
+				myTabHost.setVisibility(View.VISIBLE);
 				ll_pin_detail_down.setVisibility(View.INVISIBLE);
 				ll_pin_detail_up.setVisibility(View.INVISIBLE);
 				et_pin_detail_name.setText("");
@@ -472,6 +481,7 @@ public class Frag_Tag_My_Burg extends Fragment implements OnClickListener
 					ll_tag_my_pin_confirm.setVisibility(View.INVISIBLE);
 					ll_pin_detail_down.setVisibility(View.VISIBLE);
 					ll_pin_detail_up.setVisibility(View.VISIBLE);
+					myTabHost.setVisibility(View.GONE);
 				}
 				else
 				{

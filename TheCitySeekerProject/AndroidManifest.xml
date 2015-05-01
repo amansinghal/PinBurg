@@ -49,30 +49,33 @@
         android:name="com.aman.seeker.ApplicationContextClass"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-         >
+        android:label="@string/app_name" >
         <activity
             android:name=".DashBoard"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
-           <!--  <intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter> -->
+            </intent-filter>
+            -->
         </activity>
-        
-         <activity
+        <activity
             android:name="com.aman.seeker.Activity_Add_Pins"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
-           <!--  <intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter> -->
+            </intent-filter>
+            -->
         </activity>
-        
         <activity
             android:name="com.aman.seeker.Activity_Pin_Details"
             android:screenOrientation="portrait" >
@@ -80,20 +83,20 @@
         <activity
             android:name="com.aman.seeker.LoginOptionsActivity"
             android:label="@string/login"
-            android:theme="@style/Theme.AppCompat.Light"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light" >
         </activity>
-         <activity
+        <activity
             android:name="com.aman.seeker.Activity_Choose_Category"
             android:label="@string/login"
-            android:theme="@style/MyTheme"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:theme="@style/MyTheme" >
         </activity>
-         <activity
+        <activity
             android:name="com.aman.seeker.Activity_Explore_Category"
             android:label="@string/login"
-            android:theme="@style/MyTheme"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:theme="@style/MyTheme" >
         </activity>
         <!-- Goolge API Key -->
         <meta-data
@@ -123,11 +126,12 @@
             android:name="com.aman.seeker.DialogActivityServiceRestart"
             android:theme="@android:style/Theme.DeviceDefault.Dialog.NoActionBar" >
         </activity>
-        
-         <activity
+        <activity
             android:name="com.aman.seeker.Activity_Dashboard"
-            android:theme="@android:style/Theme.DeviceDefault.NoActionBar" >
-             <intent-filter>
+            android:configChanges="keyboardHidden|orientation|keyboard"
+            android:theme="@android:style/Theme.DeviceDefault.NoActionBar"
+            android:windowSoftInputMode="adjustPan" >
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />

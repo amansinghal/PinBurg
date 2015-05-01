@@ -68,6 +68,7 @@ public class PlaceDetailsTask extends AsyncTask<String, Void, Integer>
 			JSONObject j1=new JSONObject(response);
 			j=j.getJSONObject("result").getJSONArray("address_components").getJSONObject(0);
 			placeDetails.put("name", j.getString("long_name"));
+			placeDetails.put("address",j1.getJSONObject("result").getString("formatted_address"));
 			j1=j1.getJSONObject("result").getJSONObject("geometry").getJSONObject("location");
 			placeDetails.put("lat", j1.getString("lat"));
 			placeDetails.put("lng", j1.getString("lng"));

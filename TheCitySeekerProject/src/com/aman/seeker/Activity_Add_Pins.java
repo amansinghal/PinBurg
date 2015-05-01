@@ -1,7 +1,6 @@
 package com.aman.seeker;
 
 import com.aman.fragments.Frag_Tag_My_Burg;
-
 import android.app.ActionBar;
 import android.app.FragmentManager;
 import android.os.Bundle;
@@ -12,6 +11,7 @@ public class Activity_Add_Pins extends ActionBarActivity
 {
 	private ActionBar actionBar;
 	private FragmentManager fragmentManager;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{	

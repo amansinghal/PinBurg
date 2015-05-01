@@ -2023,7 +2023,8 @@ public abstract class ExtendableListView extends AbsListView {
             postOnAnimate(this);
         }
 
-        void startScroll(int distance, int duration) {
+        @SuppressWarnings("unused")
+		void startScroll(int distance, int duration) {
             int initialY = distance < 0 ? Integer.MAX_VALUE : 0;
             mLastFlingY = initialY;
             mScroller.startScroll(0, initialY, 0, distance, duration);

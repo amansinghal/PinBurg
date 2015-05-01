@@ -12,6 +12,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.params.HttpParams;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -336,7 +337,9 @@ public class Config
 		return new LatLng(Math.toDegrees(lat2),Math.toDegrees(lon2));
 	}
 	
-	 public static boolean isLocationServiceEnabled(Context con) 
+	 @TargetApi(Build.VERSION_CODES.KITKAT)
+	@SuppressWarnings("deprecation")
+	public static boolean isLocationServiceEnabled(Context con) 
 	 { 
 		/* LocationManager lm = (LocationManager)con.getSystemService(Context.LOCATION_SERVICE);
 		 String provider = lm.getBestProvider(new Criteria(), true);

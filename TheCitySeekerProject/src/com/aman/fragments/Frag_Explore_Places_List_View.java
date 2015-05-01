@@ -80,12 +80,14 @@ public class Frag_Explore_Places_List_View extends Fragment implements OnClickLi
 		}
 		else
 		{
-			setAddressFromLocation(locationForSearch);
+			//setAddressFromLocation(locationForSearch);
+			ac_tv_search_pin.setText(locationForSearch.getExtras().getString("address"));	
+			getPinAccoringToCatgory(""+locationForSearch.getLatitude(),""+locationForSearch.getLongitude(),"10",selectedCategory);
 		}
 		return v;
 	}		
 
-	private void setAddressFromLocation(Location location)
+	private void setAddressFromLocation(final Location location)
 	{
 		GetAddressFromLocationTask task = new GetAddressFromLocationTask(getActivity(), new GetAddressFromLocationTask.onTaskCompleteListener() 
 		{		
@@ -95,7 +97,7 @@ public class Frag_Explore_Places_List_View extends Fragment implements OnClickLi
 				if(!listAddress.isEmpty())
 				{
 					ac_tv_search_pin.setText(listAddress.get(0).getAddressLine(0));	
-					getPinAccoringToCatgory(""+gps.getLatitude(),""+gps.getLongitude(),"10",  selectedCategory);
+					getPinAccoringToCatgory(""+location.getLatitude(),""+location.getLongitude(),"10",selectedCategory);
 				}
 				else
 				{
@@ -204,6 +206,9 @@ public class Frag_Explore_Places_List_View extends Fragment implements OnClickLi
 					locationForSearch = new Location("");
 					locationForSearch.setLatitude(Double.parseDouble(placeDetails.get("lat")));
 					locationForSearch.setLongitude(Double.parseDouble( placeDetails.get("lng")));
+					Bundle bundle = new Bundle();
+					bundle.putString("address",placeDetails.get("address"));
+					locationForSearch.setExtras(bundle);
 					baseActivityContext.locationForSearch = locationForSearch;
 					Frag_Explore_Places_List_View.this.placeDetails = placeDetails;
 					getPinAccoringToCatgory(placeDetails.get("lat"), placeDetails.get("lng"), "10", selectedCategory);
@@ -294,8 +299,9 @@ public class Frag_Explore_Places_List_View extends Fragment implements OnClickLi
 		{							
 			@Override
 			public void ontaskComplete(ArrayList<PlaceModel> listPlaces) 
-			{
-				listPlaceModels=listPlaces;
+			{				
+				listPlaceModels.clear();				
+				listPlaceModels.addAll(listPlaces);
 				if(listPlaces.size()>0)
 				{
 					dropdownContainer=new ArrayList<>();

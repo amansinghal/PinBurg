@@ -23,9 +23,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.aman.fragments.Frag_Explore_Places;
-import com.aman.fragments.Frag_Tag_My_Burg;
 import com.aman.fragments.TabHostFragmentTest;
 import com.aman.utils.Config;
+import com.aman.utils.MyTabHost;
 
 public class Activity_Dashboard extends Activity implements OnClickListener, OnItemClickListener
 {
@@ -33,9 +33,10 @@ public class Activity_Dashboard extends Activity implements OnClickListener, OnI
 	private SharedPreferences pref;
 	private ArrayAdapter<String> adapter;
 	private ListView lv_navigation_drawer_items;
-	private FragmentManager fragmentManager = getFragmentManager();
+	private FragmentManager fragmentManager = getFragmentManager();	
 	public MenuDrawer mDrawer;
 	private Handler handler;
+	public MyTabHost myTabHost;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -55,7 +56,7 @@ public class Activity_Dashboard extends Activity implements OnClickListener, OnI
 						
 		initViews();								
 				
-		adapter=new ArrayAdapter<String>(this,R.layout.drawer_text_view, new String[] {getString(R.string.title_pins),getString(R.string.title_tagmyfav),getString(R.string.title_my_alert_me) });
+		adapter=new ArrayAdapter<String>(this,R.layout.drawer_text_view, new String[] {getString(R.string.title_pins),getString(R.string.title_explore),getString(R.string.title_my_alert_me) });
 	}
 
 
@@ -151,7 +152,7 @@ public class Activity_Dashboard extends Activity implements OnClickListener, OnI
 				}
 				if(arg2 == 1)
 				{
-					getFragmentManager().beginTransaction().replace(R.id.activity_dashboard_container,new Frag_Tag_My_Burg()).setCustomAnimations(R.anim.enter_anim,R.anim.exit_anim).commit();
+					getFragmentManager().beginTransaction().replace(R.id.activity_dashboard_container,new Frag_Explore_Places()).setCustomAnimations(R.anim.enter_anim,R.anim.exit_anim).commit();
 				}
 			}
 		},MenuDrawer.ANIMATION_DELAY+500);	
