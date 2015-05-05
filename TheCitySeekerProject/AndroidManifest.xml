@@ -129,7 +129,7 @@
         <activity
             android:name="com.aman.seeker.Activity_Dashboard"
             android:configChanges="keyboardHidden|orientation|keyboard"
-            android:theme="@android:style/Theme.DeviceDefault.NoActionBar"
+            android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar"
             android:windowSoftInputMode="adjustPan" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

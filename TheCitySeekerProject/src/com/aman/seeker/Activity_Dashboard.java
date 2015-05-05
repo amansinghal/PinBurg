@@ -54,9 +54,7 @@ public class Activity_Dashboard extends Activity implements OnClickListener, OnI
 				
 		mDrawer.setMenuView(R.layout.fragment_navigation_drawer);
 						
-		initViews();								
-				
-		adapter=new ArrayAdapter<String>(this,R.layout.drawer_text_view, new String[] {getString(R.string.title_pins),getString(R.string.title_explore),getString(R.string.title_my_alert_me) });
+		initViews();													
 	}
 
 
@@ -67,7 +65,7 @@ public class Activity_Dashboard extends Activity implements OnClickListener, OnI
 		lv_navigation_drawer_items = (ListView)mDrawer.findViewById(R.id.lv_navigation_drawer);
 		iv_navigation_drawer_profile_picture = (ImageView)mDrawer.findViewById(R.id.iv_profile_image);
 		iv_navigation_drawer_profile_picture.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,(int) (Config.getScreenSize(this)[1]/2.5)));
-		adapter=new ArrayAdapter<String>(this,R.layout.drawer_text_view, new String[] {getString(R.string.title_pins),getString(R.string.title_tagmyfav),getString(R.string.title_my_alert_me) });
+		adapter=new ArrayAdapter<String>(this,R.layout.drawer_text_view, new String[] {getString(R.string.title_pins),getString(R.string.title_explore),getString(R.string.title_my_alert_me) });
 		lv_navigation_drawer_items.setAdapter(adapter);
 		lv_navigation_drawer_items.setItemChecked(1, true);
 		lv_navigation_drawer_items.setOnItemClickListener(this);
